@@ -1,0 +1,74 @@
+[
+	{
+		"code": "CS0051",
+		"description": "Something very inconsequential",
+		"fingerprint": "2815696ecbf1c96e6894b779456d330a",
+		"severity": "info",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0051",
+		"description": "Something minor",
+		"fingerprint": "3815696ecbf1c96e6894b779456d330c",
+		"severity": "minor",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0051",
+		"description": "Something kinda important",
+		"fingerprint": "4815696ecbf1c96e6894b779456d330d",
+		"severity": "major",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0051",
+		"description": "Something critical",
+		"fingerprint": "5815696ecbf1c96e6894b779456d330f",
+		"severity": "critical",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0051",
+		"description": "Something blocking",
+		"fingerprint": "6815696ecbf1c96e6894b779456d330d",
+		"severity": "blocker",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0051",
+		"description": "Another blocking",
+		"fingerprint": "7815696ecbf1c96e6894b779456d330b`",
+		"severity": "blocker",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	}
+]

@@ -2,13 +2,16 @@ namespace Tanuki.CodeQuality.Models
 {
 	public class Issue
 	{
+		// CodeClimate specification
 		public string code;
 		public string description;
 		public string fingerprint;
 		public string severity;
+		public Location location;
+		// Extensions
 		public string category;
 		public string engine;
-		public Location location;
+		public string body;
 		
 		public class Location
 		{

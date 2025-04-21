@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using CommandLine;
 using Newtonsoft.Json;
 using Tanuki.CodeQuality.Models;
 
 namespace Tanuki.CodeQuality
 {
-	public static class CodeQuality
+	public class CodeQuality
 	{
 		[Verb("codequality", HelpText = "Code Quality operations.")]
 		public class Options
@@ -17,9 +18,19 @@ namespace Tanuki.CodeQuality
 			public string command { get; set; }
 			[Value(1, MetaName = "path", HelpText = "Path to target file/folder.", Required = false)]
 			public string path { get; set; }
+			
+			[Option("urlPrefix")]
+			public string urlPrefix { get; set; }
+		}
+		
+		private readonly Options options;
+		
+		public CodeQuality(Options options)
+		{
+			this.options = options;
 		}
 
-		public static void OnParse(Options options)
+		public void OnParse()
 		{
 			Console.WriteLine(options.command);
 			Console.WriteLine(options.path ?? "No target");
@@ -27,10 +38,10 @@ namespace Tanuki.CodeQuality
 			BuildHTML(options.path);
 		}
 		
-		static void BuildHTML(string path)
+		void BuildHTML(string path)
 		{
-			var text = File.ReadAllText(path);
-			var issues = JsonConvert.DeserializeObject<List<Issue>>(text)
+			var reportText = File.ReadAllText(path);
+			var issues = JsonConvert.DeserializeObject<List<Issue>>(reportText)
 				.OrderByDescending(x => Issue.SeverityToInt(x.severity))
 				.ToList();
 			var categories = issues
@@ -44,22 +55,110 @@ namespace Tanuki.CodeQuality
 				.Distinct()
 				.ToList();
 			
-			Console.WriteLine("Issues:");
-			foreach (var i in issues)
-			{
-				Console.WriteLine($"{i.severity} {i.code} {i.description}");
-			}
+			var htmlText = File.ReadAllText("templates/html/gl-code-quality-report.html");
+			var smellPartial = File.ReadAllText("templates/html/partials/smell.html");
+			var noIssuesPartial = File.ReadAllText("templates/html/partials/no-issues.html");
 			
-			Console.WriteLine("filter.css");
+			// Set title
+			htmlText = GetValueRegex("project.name").Replace(htmlText, "Jontron");
+			
+			// Smells sections
+			string issuesSection;
+			if (issues.Count == 0)
+			{
+				issuesSection = noIssuesPartial;
+			}
+			else
+			{
+				issuesSection = string.Empty;
+				foreach (var issue in issues)
+				{
+					issuesSection += SmellString(smellPartial, issue);	
+				}
+			}
+			htmlText = GetValueRegex("smells").Replace(htmlText, issuesSection);
+			
+			File.WriteAllText("templates/html/output.html", htmlText);
+			
+			EmitFilters(categories, engines);
+		}
+		
+		string SmellString(string smellPartial, Issue issue)
+		{
+			var text = smellPartial;
+			text = ReplaceOrEmpty(text, "issue.severity", issue.severity, "info");
+			text = ReplaceOrEmpty(text, "issue.description", issue.description);
+			text = ReplaceOrEmpty(text, "issue.source_path", issue.location.path);
+			text = ReplaceOrEmpty(text, "issue.body", issue.body, string.Empty);
+			text = ReplaceOrEmpty(text, "issue.category", issue.category);
+			text = ReplaceOrEmpty(text, "issue.engine", issue.engine);
+			
+			// Found In
+			string foundInString = null;
+			if (issue.location is not null)
+			{
+				var sourceFileRelativePath = issue.location.path;
+				if (issue.location?.lines?.begin is not null)
+				{
+					sourceFileRelativePath += $"#L{issue.location.lines.begin}";
+				}
+				var sourceFileUrl = $"{options.urlPrefix}/{sourceFileRelativePath}";
+				
+				// Create HTML
+				foundInString = $"Found in <a href=\"{sourceFileUrl}\">{sourceFileRelativePath}</a>";
+				
+				// Engine
+				if (!string.IsNullOrEmpty(issue.engine))
+				{
+					var engineUrl = "https://gitlab.com";
+					foundInString += $" by <a href=\"{engineUrl}\">{issue.engine}</a>";
+				}
+			}
+			text = GetValueRegex("found-in").Replace(text, foundInString);
+			
+			static string ReplaceOrEmpty(string msg, string exp, string x, string fallback = null)
+			{
+				if (string.IsNullOrEmpty(x))
+				{
+					if (fallback is null)
+					{
+						return msg;
+					}
+					
+					x = fallback;
+				}
+				
+				return GetValueRegex(exp).Replace(msg, x);
+			}
+
+			return text;
+		}
+		
+		void EmitFilters(List<string> categories, List<string> engines)
+		{
+			categories = categories.Select(Slugify).ToList();
+			engines = engines.Select(Slugify).ToList();
+			
+			Console.WriteLine("BEGIN filter.css");
 			foreach (var category in categories)
 			{
 				Console.WriteLine($".filter-category-{category} > li,");	
 			}
 			foreach (var engine in engines)
 			{
-				var slug = engine.Replace(" ", "_");
-				Console.WriteLine($".filter-engine-{slug} > li,");	
+				Console.WriteLine($".filter-engine-{engine} > li,");	
 			}
+		}
+		
+		static string Slugify(string x)
+		{
+			return x.Replace(" ", "_");	
+		}
+		
+		static Regex GetValueRegex(string text, RegexOptions options = RegexOptions.Multiline)
+		{
+			text = Regex.Escape(text);
+			return new Regex(@$"<%= {text} -?%>", options);
 		}
 	}
 }

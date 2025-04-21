@@ -1,10 +1,9 @@
 <li
-	data-categories="<%= params issue.categories %>"
-	data-engine="<%= param issue.engine_name %>">
-	<h2><%= issue.description %></h2>
+	data-categories="<%= issue.category %>"
+	data-engine="<%= issue.engine %>">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-<%= issue.severity %>.svg"/></svg></span><%= issue.description %></h2>
 	<%= issue.body -%>
 	<div class="found-in">
-		Found in <a href="<%= h issue.source.url %>"><%= issue.source.path %></a> by
-		<a href="<%= issue.engine_url -%>"><%= issue.engine_name -%></a>
+		<%= found-in -%>
 	</div>
 </li>

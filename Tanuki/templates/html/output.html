@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Code Climate Report for <%= project.name %></title>
+	<title>Code Climate Report for Jontron</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-core.min.js" data-manual></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-clike.min.js"></script>
@@ -177,7 +177,7 @@
 	<header id="top">
 		<div class="container">
 		<a id="logo" href="https://codeclimate.com/">Code Climate</a>
-		<h1><%= project.name -%></h1>
+		<h1>Jontron</h1>
 		</div>
 	</header>
 	<div class="container">
@@ -195,7 +195,55 @@
 				</select>
 			</div>
 			<ul id="smells">
-				<%= smells -%>
+				<li
+	data-categories="<%= issue.category %>"
+	data-engine="<%= issue.engine %>">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-blocker.svg"/></svg></span>Something blocking</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt#L1</a>
+	</div>
+</li><li
+	data-categories="<%= issue.category %>"
+	data-engine="<%= issue.engine %>">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-blocker.svg"/></svg></span>Another blocking</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt#L1</a>
+	</div>
+</li><li
+	data-categories="<%= issue.category %>"
+	data-engine="<%= issue.engine %>">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-critical.svg"/></svg></span>Something critical</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt#L1</a>
+	</div>
+</li><li
+	data-categories="Assets"
+	data-engine="Rubocop">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-major.svg"/></svg></span>Something kinda important</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Rubocop</a>
+	</div>
+</li><li
+	data-categories="Performance"
+	data-engine="Enforcer">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-minor.svg"/></svg></span>Something minor</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Enforcer</a>
+	</div>
+</li><li
+	data-categories="Performance"
+	data-engine="Project Auditor">
+	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-info.svg"/></svg></span>Something very inconsequential</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Project Auditor</a>
+	</div>
+</li>
 			 </ul>
 			<div id="filtered-out-message">All issues have been filtered out</div>
 		</div>

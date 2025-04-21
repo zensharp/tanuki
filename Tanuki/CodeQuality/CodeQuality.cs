@@ -49,15 +49,16 @@ namespace Tanuki.CodeQuality
 			{
 				Console.WriteLine($"{i.severity} {i.code} {i.description}");
 			}
-			Console.WriteLine("Categories:");
-			foreach (var c in categories)
+			
+			Console.WriteLine("filter.css");
+			foreach (var category in categories)
 			{
-				Console.WriteLine($"{c}");
+				Console.WriteLine($".filter-category-{category} > li,");	
 			}
-			Console.WriteLine("Engines:");
-			foreach (var e in engines)
+			foreach (var engine in engines)
 			{
-				Console.WriteLine($"{e}");
+				var slug = engine.Replace(" ", "_");
+				Console.WriteLine($".filter-engine-{slug} > li,");	
 			}
 		}
 	}

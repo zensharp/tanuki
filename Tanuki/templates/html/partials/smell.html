@@ -1,10 +1,10 @@
 <li
 	data-categories="<%= params issue.categories %>"
 	data-engine="<%= param issue.engine_name %>">
-	<h2><%= h issue.description %></h2>
+	<h2><%= issue.description %></h2>
 	<%= issue.body -%>
 	<div class="found-in">
-		Found in <a href="<%= h issue.source.url %>"><%= h issue.source.path %></a> by
+		Found in <a href="<%= h issue.source.url %>"><%= issue.source.path %></a> by
 		<a href="<%= issue.engine_url -%>"><%= issue.engine_name -%></a>
 	</div>
 </li>

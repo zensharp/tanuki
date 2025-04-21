@@ -8,8 +8,6 @@ using Tanuki.Models;
 Parser.Default.ParseArguments<CodeQualityOptions>(args)
 	.WithParsed<CodeQualityOptions>(OnParse);
 
-
-
 void OnParse(CodeQualityOptions options)
 {
 	Console.WriteLine(options.command);

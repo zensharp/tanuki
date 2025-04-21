@@ -1,19 +1,19 @@
-.filter-category-complexity > li,
-.filter-engine-rubocop > li,
-.filter-engine-structure > li,
 .filter-none > li {
   display: none;
 }
-
-.filter-category-all.filter-engine-rubocop > li[data-engine="rubocop"],
-.filter-category-all.filter-engine-structure > li[data-engine="structure"],
-.filter-category-complexity.filter-engine-all > li[data-categories~="complexity"],
-.filter-category-all.filter-engine-all > li[data-categories~="all"][data-engine="all"],
-.filter-category-all.filter-engine-rubocop > li[data-categories~="all"][data-engine="rubocop"],
-.filter-category-all.filter-engine-structure > li[data-categories~="all"][data-engine="structure"],
-.filter-category-complexity.filter-engine-all > li[data-categories~="complexity"][data-engine="all"],
-.filter-category-complexity.filter-engine-rubocop > li[data-categories~="complexity"][data-engine="rubocop"],
-.filter-category-complexity.filter-engine-structure > li[data-categories~="complexity"][data-engine="structure"],
 .filter-category-all.filter-engine-all > li {
   display: block;
 }
+
+.filter-category-complexity > li,
+.filter-engine-rubocop > li,
+.filter-engine-structure > li,
+.filter-category-all.filter-engine-all > li[data-categories~="all"][data-engine="all"],
+.filter-category-all.filter-engine-rubocop > li[data-engine="rubocop"],
+.filter-category-all.filter-engine-structure > li[data-engine="structure"],
+.filter-category-all.filter-engine-rubocop > li[data-categories~="all"][data-engine="rubocop"],
+.filter-category-all.filter-engine-structure > li[data-categories~="all"][data-engine="structure"],
+.filter-category-complexity.filter-engine-all > li[data-categories~="complexity"],
+.filter-category-complexity.filter-engine-all > li[data-categories~="complexity"][data-engine="all"],
+.filter-category-complexity.filter-engine-rubocop > li[data-categories~="complexity"][data-engine="rubocop"],
+.filter-category-complexity.filter-engine-structure > li[data-categories~="complexity"][data-engine="structure"],

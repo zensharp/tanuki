@@ -1,7 +1,9 @@
 [
 	{
 		"code": "CS0051",
+		"category": "Performance",
 		"description": "Something very inconsequential",
+		"engine": "Project Auditor",
 		"fingerprint": "2815696ecbf1c96e6894b779456d330a",
 		"severity": "info",
 		"location": {
@@ -13,7 +15,9 @@
 	},
 	{
 		"code": "CS0051",
+		"category": "Performance",
 		"description": "Something minor",
+		"engine": "Enforcer",
 		"fingerprint": "3815696ecbf1c96e6894b779456d330c",
 		"severity": "minor",
 		"location": {
@@ -25,7 +29,9 @@
 	},
 	{
 		"code": "CS0051",
+		"category": "Assets",
 		"description": "Something kinda important",
+		"engine": "Rubocop",
 		"fingerprint": "4815696ecbf1c96e6894b779456d330d",
 		"severity": "major",
 		"location": {

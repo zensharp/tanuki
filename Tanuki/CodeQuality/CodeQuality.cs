@@ -18,6 +18,7 @@ namespace Tanuki.CodeQuality
 			public string command { get; set; }
 			[Value(1, MetaName = "path", HelpText = "Path to target file/folder.", Required = false)]
 			public string path { get; set; }
+			public string title { get; set; } = "Code Quality Report by Tanuki";
 			
 			[Option("urlPrefix")]
 			public string urlPrefix { get; set; }
@@ -32,9 +33,6 @@ namespace Tanuki.CodeQuality
 
 		public void OnParse()
 		{
-			Console.WriteLine(options.command);
-			Console.WriteLine(options.path ?? "No target");
-			
 			BuildHTML(options.path);
 		}
 		
@@ -60,7 +58,7 @@ namespace Tanuki.CodeQuality
 			var htmlText = File.ReadAllText("templates/html/gl-code-quality-report.html");
 			
 			// Set title
-			htmlText = GetValueRegex("project.name").Replace(htmlText, "Jontron");
+			htmlText = GetValueRegex("project.name").Replace(htmlText, options.title);
 			
 			// Filters
 			htmlText = GetValueRegex("filter.categories").Replace(htmlText, ToOptionslist(categories));
@@ -72,7 +70,7 @@ namespace Tanuki.CodeQuality
 				
 				string ToOption(string c)
 				{
-					return $"<option value=\"{Slugify(c)}\">{c}</option>";
+					return $"<option value=\"{Macros.Slugify(c)}\">{c}</option>";
 				}
 			}
 			
@@ -102,23 +100,35 @@ namespace Tanuki.CodeQuality
 		{
 			var text = smellPartial;
 			text = ReplaceOrEmpty(text, "issue.severity", issue.severity, "info");
-			text = ReplaceOrEmpty(text, "issue.description", issue.description);
 			text = ReplaceOrEmpty(text, "issue.source_path", issue.location.path);
 			text = ReplaceOrEmpty(text, "issue.body", issue.body, string.Empty);
 			text = ReplaceOrEmpty(text, "issue.category", issue.category);
-			text = ReplaceOrEmpty(text, "issue.category_slug", Slugify(issue.category));
-			text = ReplaceOrEmpty(text, "issue.engine_slug", Slugify(issue.engine));
+			text = ReplaceOrEmpty(text, "issue.category_slug", Macros.Slugify(issue.category));
+			text = ReplaceOrEmpty(text, "issue.engine_slug", Macros.Slugify(issue.engine));
 			
-			// Found In
+			// Issue title
+			string titleString = null;
+			if (!string.IsNullOrEmpty(issue.code))
+			{
+				titleString = issue.code;
+			}
+			if (!string.IsNullOrWhiteSpace(issue.description))
+			{
+				titleString += " " + issue.description;
+			}
+			text = ReplaceOrEmpty(text, "issue.title", titleString.Trim());
+			
+			// Issue "found in"
 			string foundInString = null;
 			if (issue.location is not null)
 			{
 				var sourceFileRelativePath = issue.location.path;
+				var sourceFileRelativePathWithLineNumber = sourceFileRelativePath;
 				if (issue.location?.lines?.begin is not null)
 				{
-					sourceFileRelativePath += $"#L{issue.location.lines.begin}";
+					sourceFileRelativePathWithLineNumber += $"#L{issue.location.lines.begin}";
 				}
-				var sourceFileUrl = $"{options.urlPrefix}/{sourceFileRelativePath}";
+				var sourceFileUrl = $"{options.urlPrefix}/{sourceFileRelativePathWithLineNumber}";
 				
 				// Create HTML
 				foundInString = $"Found in <a href=\"{sourceFileUrl}\">{sourceFileRelativePath}</a>";
@@ -153,8 +163,8 @@ namespace Tanuki.CodeQuality
 		void EmitFilters(List<string> categories, List<string> engines)
 		{
 			// Locals
-			categories = categories.Select(Slugify).ToList();
-			engines = engines.Select(Slugify).ToList();
+			categories = categories.Select(Macros.Slugify).ToList();
+			engines = engines.Select(Macros.Slugify).ToList();
 			var categoriesWithAll = categories.Prepend("all").ToList();
 			var enginesWithAll = engines.Prepend("all").ToList();
 			
@@ -193,19 +203,7 @@ namespace Tanuki.CodeQuality
 			
 			File.WriteAllText("public/filter.css", writer.ToString());
 		}
-		
-		static string Slugify(string x)
-		{
-			if (string.IsNullOrEmpty(x))
-			{
-				return x;
-			}
-			
-			x = x.Replace(" ", "_");
-			x = x.ToLower();
-			return x;
-		}
-		
+				
 		static Regex GetValueRegex(string text, RegexOptions options = RegexOptions.Multiline)
 		{
 			text = Regex.Escape(text);

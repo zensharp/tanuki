@@ -1,5 +1,8 @@
+using System;
+
 namespace Tanuki.CodeQuality.Models
 {
+	[Serializable]
 	public class Issue
 	{
 		// CodeClimate specification
@@ -13,11 +16,13 @@ namespace Tanuki.CodeQuality.Models
 		public string engine;
 		public string body;
 		
+		[Serializable]
 		public class Location
 		{
 			public string path;
 			public Lines lines;
 			
+			[Serializable]
 			public class Lines
 			{
 				public int begin;
@@ -47,7 +52,7 @@ namespace Tanuki.CodeQuality.Models
 				return 4;
 			}
 			
-			return -1;
+			return 1;
 		}
 	}
 }

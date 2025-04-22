@@ -1,253 +1,263 @@
 <!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Code Climate Report for Jontron</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-core.min.js" data-manual></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-clike.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-ruby.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.css" />
-	<link rel="stylesheet" href="styles.css">
-	<link rel="stylesheet" href="filter.css">
-	<script>
-		/**
-		 * Report JS
-		 */
 
-		(function(){
-		Prism.hooks.add('complete', function(env) {
-			var pre = env.element.parentNode;
-			var lines = pre && pre.dataset.line;
+	<head>
+		<meta charset="UTF-8">
+		<title>Code Climate Report for Jontron
+		</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-core.min.js"
+			data-manual></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-clike.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-ruby.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css" />
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.css" />
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.css" />
+		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="filter.css">
+		<script>
+			/**
+			 * Report JS
+			 */
 
-			if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
-				console.log('nope');
-				return;
-			}
+			(function () {
+				Prism.hooks.add('complete', function (env) {
+					var pre = env.element.parentNode;
+					var lines = pre && pre.dataset.line;
 
-			var container = pre.parentElement;
+					if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
+						console.log('nope');
+						return;
+					}
 
-			if (!container || !container.classList.contains('code')) {
-				return;
-			}
+					var container = pre.parentElement;
 
-			console.log('collapsing', container);
-			container.style.height = 'auto';
-		});
-		})();
+					if (!container || !container.classList.contains('code')) {
+						return;
+					}
 
-		jQuery(function(){
-		function isVisible(element) {
-			return !!(
-				element.offsetWidth ||
-				element.offsetHeight ||
-				element.getClientRects().length
-			);
-		};
+					console.log('collapsing', container);
+					container.style.height = 'auto';
+				});
+			})();
 
-		var pendingElements = [];
-		// Convert node list to arrays
-		pendingElements.push.apply(
-			pendingElements,
-			document.querySelectorAll('#smells .code')
-		);
+			jQuery(function () {
+				function isVisible(element) {
+					return !!(
+						element.offsetWidth ||
+						element.offsetHeight ||
+						element.getClientRects().length
+					);
+				};
 
-		var waypoints = [];
+				var pendingElements = [];
+				// Convert node list to arrays
+				pendingElements.push.apply(
+					pendingElements,
+					document.querySelectorAll('#smells .code')
+				);
 
-		function updateInView() {
-			if (!pendingElements.length) {
-				return;
-			}
+				var waypoints = [];
 
-			var visibleElements = pendingElements.filter(isVisible);
-			waypoints = visibleElements.map(function(element){
-				var $e = $(element),
-				elementTop = $e.offset().top;
-				return [
-				elementTop,
-				elementTop + $e.outerHeight(),
-				element
-				];
-			});
-		};
+				function updateInView() {
+					if (!pendingElements.length) {
+						return;
+					}
 
-		function inView() {
-			var yTop = window.scrollY,
-			yBottom = window.scrollY + window.innerHeight;
+					var visibleElements = pendingElements.filter(isVisible);
+					waypoints = visibleElements.map(function (element) {
+						var $e = $(element),
+							elementTop = $e.offset().top;
+						return [
+							elementTop,
+							elementTop + $e.outerHeight(),
+							element
+						];
+					});
+				};
 
-			return waypoints.filter(function(entry){
-				return (entry[0] <= yTop && entry[1] >= yTop) ||
-				(entry[0] > yTop && entry[1] < yBottom) ||
-				(entry[0] <= yBottom && entry[1] >= yBottom);
-			});
-		}
+				function inView() {
+					var yTop = window.scrollY,
+						yBottom = window.scrollY + window.innerHeight;
 
-		var inViewHandler = function(){
-			var entries = inView();
-			if (entries.length) {
-				entries.forEach(function(entry){
-				var containerElement = entry[2];
-
-				if (pendingElements.indexOf(containerElement) === -1) {
-					return;
+					return waypoints.filter(function (entry) {
+						return (entry[0] <= yTop && entry[1] >= yTop) ||
+							(entry[0] > yTop && entry[1] < yBottom) ||
+							(entry[0] <= yBottom && entry[1] >= yBottom);
+					});
 				}
 
-				element = containerElement.querySelector('pre code');
+				var inViewHandler = function () {
+					var entries = inView();
+					if (entries.length) {
+						entries.forEach(function (entry) {
+							var containerElement = entry[2];
 
-				element.parentElement.style.visibility = 'visible';
-				Prism.highlightElement(element);
+							if (pendingElements.indexOf(containerElement) === -1) {
+								return;
+							}
 
-				pendingElements.splice(
-					pendingElements.indexOf(containerElement),
-					1
-				);
+							element = containerElement.querySelector('pre code');
+
+							element.parentElement.style.visibility = 'visible';
+							Prism.highlightElement(element);
+
+							pendingElements.splice(
+								pendingElements.indexOf(containerElement),
+								1
+							);
+						});
+						updateInView();
+					}
+				};
+
+				function enableInView() {
+					window.addEventListener('scroll', inViewHandler);
+					window.addEventListener('resize', inViewHandler);
+					inViewHandler();
+				}
+
+				function disableInView() {
+					window.removeEventListener('scroll', inViewHandler);
+					window.removeEventListener('resize', inViewHandler);
+				}
+
+				updateInView();
+
+				function applyFilters() {
+					disableInView();
+					var category = $('#category-filter').val();
+					var engine = $('#engine-filter').val();
+					var list = document.getElementById('smells');
+					list.className = '';
+
+					var selector = '#smells li';
+
+					var suffix = '';
+					if (category !== '') {
+						list.classList.add('filter-category-' + category);
+					}
+					else {
+						list.classList.add('filter-category-all');
+					}
+					if (engine !== '') {
+						list.classList.add('filter-engine-' + engine);
+					}
+					else {
+						list.classList.add('filter-engine-all');
+					}
+
+					if (list.offsetHeight) {
+						$('#filtered-out-message').hide();
+
+						updateInView();
+						enableInView();
+					}
+					else {
+						$('#filtered-out-message').show();
+					}
+				}
+
+				$('#category-filter, #engine-filter').on('change', applyFilters);
+				applyFilters();
+
+				$('summary').on('click', function () {
+					setTimeout(function () {
+						updateInView();
+						inViewHandler();
+					},
+						1);
 				});
-				updateInView();
-			}
-		};
+			});
+		</script>
+	</head>
 
-		function enableInView() {
-			window.addEventListener('scroll', inViewHandler);
-			window.addEventListener('resize', inViewHandler);
-			inViewHandler();
-		}
-
-		function disableInView() {
-			window.removeEventListener('scroll', inViewHandler);
-			window.removeEventListener('resize', inViewHandler);
-		}
-
-		updateInView();
-
-		function applyFilters() {
-			disableInView();
-			var category = $('#category-filter').val();
-			var engine = $('#engine-filter').val();
-			var list = document.getElementById('smells');
-			list.className = '';
-
-			var selector = '#smells li';
-
-			var suffix = '';
-			if (category !== '') {
-				list.classList.add('filter-category-' + category);
-			}
-			else {
-				list.classList.add('filter-category-all');
-			}
-			if (engine !== '') {
-				list.classList.add('filter-engine-' + engine);
-			}
-			else {
-				list.classList.add('filter-engine-all');
-			}
-
-			if (list.offsetHeight) {
-				$('#filtered-out-message').hide();
-
-				updateInView();
-				enableInView();
-			}
-			else {
-				$('#filtered-out-message').show();
-			}
-		}
-
-		$('#category-filter, #engine-filter').on('change', applyFilters);
-		applyFilters();
-
-		$('summary').on('click', function() {
-			setTimeout(function(){
-				updateInView();
-				inViewHandler();
-			},
-			1);
-		});
-		});
-	</script>
-	<style>
-		<%= filter-combinations -%>
-	</style>
-</head>
-<body>
-	<header id="top">
-		<div class="container">
-		<a id="logo" href="https://codeclimate.com/">Code Climate</a>
-		<h1>Jontron</h1>
-		</div>
-	</header>
-	<div class="container">
-		<div id="main-container">
-			<div class="issue-filters">
-				<label for="category-filter">Category</label>
-				<select id="category-filter">
-					<option value="">All</option>
-					<%= category-filter -%>
-				</select>
-				<label for="engine-filter">Engine</label>
-				<select id="engine-filter">
-					<option value="">All</option>
-					<%= engine-filter -%>
-				</select>
+	<body>
+		<header id="top">
+			<div class="container">
+				<a id="logo" href="https://codeclimate.com/">Code Climate</a>
+				<h1>
+					Jontron
+				</h1>
 			</div>
-			<ul id="smells">
-				<li
-	data-categories="<%= issue.category %>"
-	data-engine="<%= issue.engine %>">
+		</header>
+		<div class="container">
+			<div id="main-container">
+				<div class="issue-filters">
+					<label for="category-filter">Filter by Category</label>
+					<select id="category-filter">
+						<option value="">All</option>
+						<option value="complexity">Complexity</option>
+						<option value="performance">Performance</option>
+					</select>
+					<label for="engine-filter">Filter by Engine</label>
+					<select id="engine-filter">
+						<option value="">All</option>
+						<option value="enforcer">Enforcer</option>
+						<option value="project_auditor">Project Auditor</option>
+					</select>
+				</div>
+				<ul id="smells">
+					<li
+	data-categories="assets"
+	data-engine="enforcer">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-blocker.svg"/></svg></span>Something blocking</h2>
 	
 	<div class="found-in">
-		Found in <a href="/features.txt#L1">features.txt#L1</a>
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Enforcer</a>
 	</div>
 </li><li
-	data-categories="<%= issue.category %>"
-	data-engine="<%= issue.engine %>">
+	data-categories="performance"
+	data-engine="enforcer">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-blocker.svg"/></svg></span>Another blocking</h2>
 	
 	<div class="found-in">
-		Found in <a href="/features.txt#L1">features.txt#L1</a>
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Enforcer</a>
 	</div>
 </li><li
-	data-categories="<%= issue.category %>"
-	data-engine="<%= issue.engine %>">
+	data-categories="assets"
+	data-engine="enforcer">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-critical.svg"/></svg></span>Something critical</h2>
 	
 	<div class="found-in">
-		Found in <a href="/features.txt#L1">features.txt#L1</a>
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Enforcer</a>
 	</div>
 </li><li
-	data-categories="Assets"
-	data-engine="Rubocop">
+	data-categories="assets"
+	data-engine="enforcer">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-major.svg"/></svg></span>Something kinda important</h2>
 	
 	<div class="found-in">
-		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Rubocop</a>
+		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Enforcer</a>
 	</div>
 </li><li
-	data-categories="Performance"
-	data-engine="Enforcer">
+	data-categories="performance"
+	data-engine="enforcer">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-minor.svg"/></svg></span>Something minor</h2>
 	
 	<div class="found-in">
 		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Enforcer</a>
 	</div>
 </li><li
-	data-categories="Performance"
-	data-engine="Project Auditor">
+	data-categories="performance"
+	data-engine="project_auditor">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-info.svg"/></svg></span>Something very inconsequential</h2>
 	
 	<div class="found-in">
 		Found in <a href="/features.txt#L1">features.txt#L1</a> by <a href="https://gitlab.com">Project Auditor</a>
 	</div>
 </li>
-			 </ul>
-			<div id="filtered-out-message">All issues have been filtered out</div>
+				</ul>
+				<div id="filtered-out-message">All issues have been filtered out</div>
+			</div>
 		</div>
-	</div>
-</div>
-</body>
+		</div>
+	</body>
+
 </html>

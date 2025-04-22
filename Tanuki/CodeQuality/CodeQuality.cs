@@ -91,7 +91,8 @@ namespace Tanuki.CodeQuality
 			text = ReplaceOrEmpty(text, "issue.source_path", issue.location.path);
 			text = ReplaceOrEmpty(text, "issue.body", issue.body, string.Empty);
 			text = ReplaceOrEmpty(text, "issue.category", issue.category);
-			text = ReplaceOrEmpty(text, "issue.engine", issue.engine);
+			text = ReplaceOrEmpty(text, "issue.category_slug", Slugify(issue.category));
+			text = ReplaceOrEmpty(text, "issue.engine_slug", Slugify(issue.engine));
 			
 			// Found In
 			string foundInString = null;
@@ -138,6 +139,8 @@ namespace Tanuki.CodeQuality
 		{
 			categories = categories.Select(Slugify).ToList();
 			engines = engines.Select(Slugify).ToList();
+			var categoriesWithAll = categories.Prepend("all").ToList();
+			var enginesWithAll = engines.Prepend("all").ToList();
 			
 			Console.WriteLine("BEGIN filter.css");
 			foreach (var category in categories)
@@ -148,11 +151,40 @@ namespace Tanuki.CodeQuality
 			{
 				Console.WriteLine($".filter-engine-{engine} > li,");	
 			}
+			
+			Console.WriteLine(".filter-none > li { display: none; }");
+			Console.WriteLine();
+			
+			foreach (var engine in engines)
+			{
+				Console.WriteLine($".filter-category-all.filter-engine-{engine} > li[data-engine=\"{engine}\"],");
+			}
+			foreach (var category in categories)
+			{
+				Console.WriteLine($".filter-category-{category}.filter-engine-all > li[data-categories~=\"{category}\"],");
+			}
+			
+			foreach (var category in categoriesWithAll)
+			{
+				foreach (var engine in enginesWithAll)
+				{
+					Console.WriteLine($".filter-category-{category}.filter-engine-{engine} > li[data-categories~=\"{category}\"][data-engine=\"{engine}\"],");
+				}
+			}
+			
+			Console.WriteLine(".filter-category-all.filter-engine-all > li { display: block; }");
 		}
 		
 		static string Slugify(string x)
 		{
-			return x.Replace(" ", "_");	
+			if (string.IsNullOrEmpty(x))
+			{
+				return x;
+			}
+			
+			x = x.Replace(" ", "_");
+			x = x.ToLower();
+			return x;
 		}
 		
 		static Regex GetValueRegex(string text, RegexOptions options = RegexOptions.Multiline)

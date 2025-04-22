@@ -31,7 +31,7 @@
 		"code": "CS0051",
 		"category": "Assets",
 		"description": "Something kinda important",
-		"engine": "Rubocop",
+		"engine": "Enforcer",
 		"fingerprint": "4815696ecbf1c96e6894b779456d330d",
 		"severity": "major",
 		"location": {
@@ -43,7 +43,9 @@
 	},
 	{
 		"code": "CS0051",
+		"category": "Assets",
 		"description": "Something critical",
+		"engine": "Enforcer",
 		"fingerprint": "5815696ecbf1c96e6894b779456d330f",
 		"severity": "critical",
 		"location": {
@@ -55,7 +57,9 @@
 	},
 	{
 		"code": "CS0051",
+		"category": "Assets",
 		"description": "Something blocking",
+		"engine": "Enforcer",
 		"fingerprint": "6815696ecbf1c96e6894b779456d330d",
 		"severity": "blocker",
 		"location": {
@@ -67,7 +71,9 @@
 	},
 	{
 		"code": "CS0051",
+		"category": "Performance",
 		"description": "Another blocking",
+		"engine": "Enforcer",
 		"fingerprint": "7815696ecbf1c96e6894b779456d330b`",
 		"severity": "blocker",
 		"location": {

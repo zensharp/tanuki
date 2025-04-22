@@ -1,6 +1,6 @@
 <li
-	data-categories="<%= issue.category %>"
-	data-engine="<%= issue.engine %>">
+	data-categories="<%= issue.category_slug %>"
+	data-engine="<%= issue.engine_slug %>">
 	<h2><span class="smells-title"><svg width="12" height="12"><image xlink:href="assets/severity-<%= issue.severity %>.svg"/></svg></span><%= issue.description %></h2>
 	<%= issue.body -%>
 	<div class="found-in">

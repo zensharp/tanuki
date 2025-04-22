@@ -9,10 +9,15 @@ tanuki transform -i report.project_auditor.json --from unity.projectauditor -o r
 
 ### Transform a Unity Tests report to GitLab Tests report
 ```shell
-tanuki transform -i report.codeclimate.json --from unity.testing -o report.gitlab.json
+tanuki transform -i report.unity.json --from unity.testing -o report.gitlab.json
 ```
 
 ## File Operations
+### Edit a report
+```shell
+tanuki edit -i report.json --engine "Enforcer" --base-url "BaseUrl"
+```
+
 ### Merge Code Climate reports
 ```shell
 tanuki merge -o merged.codeclimate.json a.codeclimate.json b.codeclimate.json

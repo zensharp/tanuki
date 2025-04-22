@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CommandLine;
 using Newtonsoft.Json;
+using Tanuki.Core;
 using Tanuki.Models;
 
 namespace Tanuki.Operations
@@ -138,7 +139,8 @@ namespace Tanuki.Operations
 				// Engine
 				if (!string.IsNullOrEmpty(issue.engine))
 				{
-					var engineUrl = "https://gitlab.com";
+					var config = Config.Instance;
+					var engineUrl = config?.GetEngineUrl(issue.engine) ?? string.Empty;
 					foundInString += $" by <a href=\"{engineUrl}\">{issue.engine}</a>";
 				}
 			}

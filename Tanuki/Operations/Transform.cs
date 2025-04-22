@@ -4,8 +4,8 @@ using System.Text.RegularExpressions;
 using CommandLine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Tanuki.Core;
 using Tanuki.Models;
-using Tanuki.Transformers;
 
 namespace Tanuki.Operations
 {

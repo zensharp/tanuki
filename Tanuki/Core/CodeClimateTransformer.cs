@@ -1,5 +1,5 @@
 
-namespace Tanuki.Transformers
+namespace Tanuki.Core
 {
 	public class CodeClimateTransformer
 	{

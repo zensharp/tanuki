@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Web;
 using CommandLine;
@@ -60,14 +61,14 @@ namespace Tanuki.Operations
 			var templatesDir = string.IsNullOrEmpty(options.templatesDir) ? "templates" : options.templatesDir;
 			var smellPartial = File.ReadAllText($"{templatesDir}/html/partials/smell.html");
 			var noIssuesPartial = File.ReadAllText($"{templatesDir}/html/partials/no-issues.html");
-			var htmlText = File.ReadAllText($"{templatesDir}/html/gl-code-quality-report.html");
+			var document = File.ReadAllText($"{templatesDir}/html/gl-code-quality-report.html");
 			
 			// Set title
-			htmlText = GetValueRegex("project.name").Replace(htmlText, options.title);
+			document = GetValueRegex("project.name").Replace(document, options.title);
 			
 			// Filters
-			htmlText = GetValueRegex("filter.categories").Replace(htmlText, ToOptionslist(categories));
-			htmlText = GetValueRegex("filter.engines").Replace(htmlText, ToOptionslist(engines));
+			document = GetValueRegex("filter.categories").Replace(document, ToOptionslist(categories));
+			document = GetValueRegex("filter.engines").Replace(document, ToOptionslist(engines));
 			
 			string ToOptionslist(List<string> values)
 			{
@@ -93,16 +94,16 @@ namespace Tanuki.Operations
 					issuesSection += SmellString(smellPartial, issue);	
 				}
 			}
-			htmlText = GetValueRegex("smells").Replace(htmlText, issuesSection);
+			document = GetValueRegex("smells").Replace(document, issuesSection);
 			
 			// Filters
-			htmlText = EmitFilters(htmlText, categories, engines);
+			document = EmitFilters(document, categories, engines);
 			
-			Macros.CopyDirectory($"{templatesDir}/html", options.outputPath);
-			File.WriteAllText($"{options.outputPath}/index.html", htmlText);
+			Directory.CreateDirectory(options.outputPath);
+			File.WriteAllText($"{options.outputPath}/index.html", document);
 		}
 		
-		string SmellString(string document, string smellPartial, Issue issue)
+		string SmellString(string smellPartial, Issue issue)
 		{
 			var text = smellPartial;
 			text = ReplaceOrEmpty(text, "issue.severity", issue.severity, "info");
@@ -168,7 +169,7 @@ namespace Tanuki.Operations
 			return text;
 		}
 		
-		void EmitFilters(List<string> categories, List<string> engines)
+		string EmitFilters(string document, List<string> categories, List<string> engines)
 		{
 			// Locals
 			categories = categories.Select(Macros.Slugify).ToList();
@@ -209,7 +210,7 @@ namespace Tanuki.Operations
 			// Everything
 			writer.WriteLine(".filter-category-all.filter-engine-all > li { display: block; }");
 			
-			File.WriteAllText($"{options.outputPath}/filter.css", writer.ToString());
+			return GetValueRegex("filter.css").Replace(document, writer.ToString());
 		}
 				
 		static Regex GetValueRegex(string text, RegexOptions options = RegexOptions.Multiline)

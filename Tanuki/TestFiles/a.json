@@ -1,0 +1,16 @@
+[
+	{
+		"code": "CS0024",
+		"category": "Code",
+		"description": "This came from a.json",
+		"engine": "Project Auditor",
+		"fingerprint": "2815696ecbf1c96e6894b779456d330a",
+		"severity": "info",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	}
+]

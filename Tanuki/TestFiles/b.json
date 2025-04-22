@@ -1,0 +1,16 @@
+[
+	{
+		"code": "CS0054",
+		"category": "Performance",
+		"description": "This came from b.json",
+		"engine": "Enforcer",
+		"fingerprint": "2815296ecbf1c96e6894b779456d320a",
+		"severity": "major",
+		"location": {
+			"path": "assets.txt",
+			"lines": {
+				"begin": 10
+			}
+		}
+	}
+]

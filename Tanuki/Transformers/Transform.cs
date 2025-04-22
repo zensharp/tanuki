@@ -13,10 +13,10 @@ namespace Tanuki.Transformers
 		[Verb("transform", HelpText = "Transforms a report into a Code Climate report.")]
 		public class Options
 		{
-			[Option('i', "input", HelpText = "Source file path")]
-			public string input { get; set; }
-			[Option('o', "output", HelpText = "Destination file path")]
-			public string output { get; set; }
+			[Option('i', "input", HelpText = "Path to source file.", Required = true)]
+			public string inputPath { get; set; }
+			[Option('o', "output", HelpText = "Path to destination file.", Required = false)]
+			public string outputPath { get; set; }
 			[Option("from", HelpText = "Source format")]
 			public string from { get; set; }
 		}
@@ -32,7 +32,7 @@ namespace Tanuki.Transformers
 
 		public void OnParse()
 		{
-			var srcText = File.ReadAllText(options.input);
+			var srcText = File.ReadAllText(options.inputPath);
 			
 			// Strip any leading/trailing text
 			var match = Regex.Match(srcText, @"^.*?(?<json>{.*}).*$", RegexOptions.Singleline);
@@ -91,12 +91,12 @@ namespace Tanuki.Transformers
 		
 		string GetOutputPath()
 		{
-			if (string.IsNullOrEmpty(options.output))
+			if (string.IsNullOrEmpty(options.outputPath))
 			{
 				return "codeclimate.json";
 			}
 			
-			return options.output;
+			return options.outputPath;
 		}
 	}
 }

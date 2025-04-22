@@ -15,13 +15,13 @@ namespace Tanuki.HTML
 		[Verb("html", HelpText = "Code Quality operations.")]
 		public class Options
 		{
-			public string command { get; set; }
-			[Option(MetaName = "path", HelpText = "Path to target file/folder.", Required = false)]
+			[Option('i', "input", HelpText = "Path to target file/folder.", Required = true)]
 			public string inputPath { get; set; }
-			public string title { get; set; } = "Code Quality Report by Tanuki";
-			
-			[Option("urlPrefix")]
+			[Option('o', "output", HelpText = "Path to output file/folder.", Required = false)]
+			public string outputPath { get; set; }
+			[Option("url-prefix")]
 			public string urlPrefix { get; set; }
+			public string title { get; set; } = "Code Quality Report";
 		}
 		
 		private readonly Options options;

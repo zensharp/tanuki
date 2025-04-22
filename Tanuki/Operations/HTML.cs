@@ -167,7 +167,7 @@ namespace Tanuki.Operations
 				if (!string.IsNullOrEmpty(issue.linter))
 				{
 					var config = Config.Instance;
-					var linterUrl = config?.GetLinterUrl(issue.linter) ?? string.Empty;
+					var linterUrl = Macros.GetLinterUrl(issue.linter);
 					foundInString += $" by <a href=\"{linterUrl}\">{issue.linter}</a>";
 				}
 			}

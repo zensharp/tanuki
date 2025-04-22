@@ -11,7 +11,7 @@ RUN dotnet pack src/Tanuki.csproj /p:Version="$VERSION" -c release -o out
 FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine
 WORKDIR /app
 COPY --from=build /out /app
-COPY Tanuki/templates/ /out/
+COPY Tanuki/templates /app/
 
 RUN dotnet tool install --global --add-source out Tanuki --prerelease
 ENV PATH="$PATH:/root/.dotnet/tools"

@@ -1,6 +1,6 @@
 [
 	{
-		"code": "CS0051",
+		"code": "CS0054",
 		"category": "Performance",
 		"description": "Something very inconsequential",
 		"engine": "Project Auditor",
@@ -14,21 +14,19 @@
 		}
 	},
 	{
-		"code": "CS0051",
+		"code": "CS0057",
 		"category": "Performance",
 		"description": "Something minor",
+		"body": "This issue has some <b>HTML</b> details <i>with</i> it.",
 		"engine": "Enforcer",
 		"fingerprint": "3815696ecbf1c96e6894b779456d330c",
 		"severity": "minor",
 		"location": {
-			"path": "features.txt",
-			"lines": {
-				"begin": 1
-			}
+			"path": "assets.txt"
 		}
 	},
 	{
-		"code": "CS0051",
+		"code": "CS0053",
 		"category": "Assets",
 		"description": "Something kinda important",
 		"engine": "Enforcer",
@@ -56,7 +54,7 @@
 		}
 	},
 	{
-		"code": "CS0051",
+		"code": "CS0052",
 		"category": "Assets",
 		"description": "Something blocking",
 		"engine": "Enforcer",
@@ -70,7 +68,7 @@
 		}
 	},
 	{
-		"code": "CS0051",
+		"code": "CS0052",
 		"category": "Performance",
 		"description": "Another blocking",
 		"engine": "Enforcer",

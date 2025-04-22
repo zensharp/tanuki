@@ -1,3 +1,5 @@
+name: Deploy Docker Images
+
 env:
   NUGET_SOURCE_URL: ${{secrets.GITLAB_REGISTRY_URL}}/nuget
   NUGET_PROJECT_DIR: Tanuki/Tanuki.csproj

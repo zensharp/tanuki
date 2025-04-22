@@ -1,4 +1,6 @@
-on:  
+name: Deploy NuGet Package
+
+on:
   push:
     tags:
       - 'v*'

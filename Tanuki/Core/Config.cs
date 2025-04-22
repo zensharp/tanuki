@@ -19,10 +19,10 @@ namespace Tanuki.Core
 		private static Config instance;
 		private static bool triedLoadingConfig;
 		
-		public List<Engine> engines;
+		public List<Linter> linters;
 		
 		[Serializable]
-		public class Engine
+		public class Linter
 		{
 			public string name;
 			public string url;
@@ -53,14 +53,14 @@ namespace Tanuki.Core
 			}
 		}
 		
-		public string GetEngineUrl(string key)
+		public string GetLinterUrl(string key)
 		{
 			key = Macros.Slugify(key);
-			foreach (var engine in engines)
+			foreach (var linter in linters)
 			{
-				if (engine.name == key)
+				if (linter.name == key)
 				{
-					return engine.url;
+					return linter.url;
 				}
 			}
 			

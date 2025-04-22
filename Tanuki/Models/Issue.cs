@@ -13,7 +13,7 @@ namespace Tanuki.Models
 		public Location location;
 		// Extensions
 		public string category;
-		public string engine;
+		public string linter;
 		public string body;
 		
 		[Serializable]

@@ -75,7 +75,7 @@ namespace Tanuki.Operations
 				.Distinct()
 				.ToList();
 			var engines = issues
-				.Select(x => x.engine)
+				.Select(x => x.linter)
 				.Where(x => !string.IsNullOrEmpty(x))
 				.Distinct()
 				.ToList();
@@ -129,7 +129,7 @@ namespace Tanuki.Operations
 			text = ReplaceOrEmpty(text, "issue.body", issue.body, string.Empty);
 			text = ReplaceOrEmpty(text, "issue.category", issue.category);
 			text = ReplaceOrEmpty(text, "issue.category_slug", Macros.Slugify(issue.category));
-			text = ReplaceOrEmpty(text, "issue.engine_slug", Macros.Slugify(issue.engine));
+			text = ReplaceOrEmpty(text, "issue.engine_slug", Macros.Slugify(issue.linter));
 			
 			// Icons
 			var iconIndex = Issue.SeverityToInt(issue.severity);
@@ -163,12 +163,12 @@ namespace Tanuki.Operations
 				// Create HTML
 				foundInString = $"Found in <a href=\"{sourceFileUrl}\">{sourceFileRelativePath}</a>";
 				
-				// Engine
-				if (!string.IsNullOrEmpty(issue.engine))
+				// Linter
+				if (!string.IsNullOrEmpty(issue.linter))
 				{
 					var config = Config.Instance;
-					var engineUrl = config?.GetEngineUrl(issue.engine) ?? string.Empty;
-					foundInString += $" by <a href=\"{engineUrl}\">{issue.engine}</a>";
+					var linterUrl = config?.GetLinterUrl(issue.linter) ?? string.Empty;
+					foundInString += $" by <a href=\"{linterUrl}\">{issue.linter}</a>";
 				}
 			}
 			text = GetValueRegex("found-in").Replace(text, foundInString);
@@ -191,45 +191,45 @@ namespace Tanuki.Operations
 			return text;
 		}
 		
-		string EmitFilters(string document, List<string> categories, List<string> engines)
+		string EmitFilters(string document, List<string> categories, List<string> linters)
 		{
 			// Locals
 			categories = categories.Select(Macros.Slugify).ToList();
-			engines = engines.Select(Macros.Slugify).ToList();
+			linters = linters.Select(Macros.Slugify).ToList();
 			var categoriesWithAll = categories.Prepend("all").ToList();
-			var enginesWithAll = engines.Prepend("all").ToList();
+			var lintersWithAll = linters.Prepend("all").ToList();
 			
 			var writer = new StringWriter();
 			foreach (var category in categories)
 			{
 				writer.WriteLine($".filter-category-{category} > li,");	
 			}
-			foreach (var engine in engines)
+			foreach (var linter in linters)
 			{
-				writer.WriteLine($".filter-engine-{engine} > li,");	
+				writer.WriteLine($".filter-engine-{linter} > li,");	
 			}
 			writer.WriteLine(".filter-none > li { display: none; }");
 			writer.WriteLine();
 			
-			// Engines
-			foreach (var engine in engines)
+			// category_* + linter_i
+			foreach (var linter in linters)
 			{
-				writer.WriteLine($".filter-category-all.filter-engine-{engine} > li[data-engine=\"{engine}\"],");
+				writer.WriteLine($".filter-category-all.filter-engine-{linter} > li[data-engine=\"{linter}\"],");
 			}
-			// Categories
+			// category_i + linter_*
 			foreach (var category in categories)
 			{
 				writer.WriteLine($".filter-category-{category}.filter-engine-all > li[data-categories~=\"{category}\"],");
 			}
-			// Categories + engines
+			// category_i + linter_j
 			foreach (var category in categoriesWithAll)
 			{
-				foreach (var engine in enginesWithAll)
+				foreach (var linter in lintersWithAll)
 				{
-					writer.WriteLine($".filter-category-{category}.filter-engine-{engine} > li[data-categories~=\"{category}\"][data-engine=\"{engine}\"],");
+					writer.WriteLine($".filter-category-{category}.filter-engine-{linter} > li[data-categories~=\"{category}\"][data-engine=\"{linter}\"],");
 				}
 			}
-			// Everything
+			// category_* + linter_*
 			writer.WriteLine(".filter-category-all.filter-engine-all > li { display: block; }");
 			
 			return GetValueRegex("filter.css").Replace(document, writer.ToString());

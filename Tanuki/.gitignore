@@ -401,3 +401,4 @@ FodyWeavers.xsd
 
 # Intermediate JSON files
 /*.json
+/*.html

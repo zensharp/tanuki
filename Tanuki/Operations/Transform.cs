@@ -73,7 +73,7 @@ namespace Tanuki.Operations
 					category = t["category"].ToString(),
 					description = t["description"].ToString(),
 					location = location,
-					engine = "Project Auditor",
+					linter = "Project Auditor",
 					severity = severity,
 				};
 				

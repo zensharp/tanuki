@@ -17,8 +17,8 @@ namespace Tanuki.Operations
 			public string outputPath { get; set; }
 			[Option("location-prefix", HelpText = "Prefix to prepend to each file path.")]
 			public string locationPrefix { get; set; }
-			[Option("engine", HelpText = "Set the Engine.")]
-			public string engine { get; set; }
+			[Option("linter", HelpText = "Set the Linter.")]
+			public string linter { get; set; }
 		}
 		
 		private readonly Options options;
@@ -35,10 +35,10 @@ namespace Tanuki.Operations
 			
 			foreach (var issue in issues)
 			{
-				// Set engine
-				if (!string.IsNullOrEmpty(options.engine))
+				// Set linter
+				if (!string.IsNullOrEmpty(options.linter))
 				{
-					issue.engine = options.engine;
+					issue.linter = options.linter;
 				}
 				
 				// Prepend base URL

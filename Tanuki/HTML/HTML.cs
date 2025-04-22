@@ -6,19 +6,18 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CommandLine;
 using Newtonsoft.Json;
-using Tanuki.CodeQuality.Models;
+using Tanuki.Models;
 
-namespace Tanuki.CodeQuality
+namespace Tanuki.HTML
 {
-	public class CodeQuality
+	public class HTML
 	{
-		[Verb("codequality", HelpText = "Code Quality operations.")]
+		[Verb("html", HelpText = "Code Quality operations.")]
 		public class Options
 		{
-			[Value(0, MetaName = "command", HelpText = "Code Quality command.")]
 			public string command { get; set; }
-			[Value(1, MetaName = "path", HelpText = "Path to target file/folder.", Required = false)]
-			public string path { get; set; }
+			[Option(MetaName = "path", HelpText = "Path to target file/folder.", Required = false)]
+			public string inputPath { get; set; }
 			public string title { get; set; } = "Code Quality Report by Tanuki";
 			
 			[Option("urlPrefix")]
@@ -27,14 +26,14 @@ namespace Tanuki.CodeQuality
 		
 		private readonly Options options;
 		
-		public CodeQuality(Options options)
+		public HTML(Options options)
 		{
 			this.options = options;
 		}
 
 		public void OnParse()
 		{
-			BuildHTML(options.path);
+			BuildHTML(options.inputPath);
 		}
 		
 		void BuildHTML(string path)

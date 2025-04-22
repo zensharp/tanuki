@@ -3,7 +3,6 @@ namespace Tanuki.Transformers
 {
 	public class CodeClimateTransformer
 	{
-		
 		public string TransformSeverity(string text)
 		{
 			if (text.Equals("info", System.StringComparison.InvariantCultureIgnoreCase))

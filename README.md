@@ -1,3 +1,5 @@
+# Tanuki
+> GitLab artifact utilities
 
 ## File Transformations
 ### Transform a Unity Project Auditor report to Code Climate 
@@ -19,5 +21,5 @@ tanuki merge -o merged.codeclimate.json a.codeclimate.json b.codeclimate.json
 ## Code Quality Report
 ### Transform a Code Climate report to HTML
 ```shell
-tanuki build -i report.codeclimate.json -o public
+tanuki html -i report.codeclimate.json -o public
 ```

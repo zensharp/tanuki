@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using CommandLine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Tanuki.CodeQuality.Models;
+using Tanuki.Models;
 
 namespace Tanuki.Transformers
 {

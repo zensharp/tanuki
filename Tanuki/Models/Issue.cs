@@ -1,6 +1,6 @@
 using System;
 
-namespace Tanuki.CodeQuality.Models
+namespace Tanuki.Models
 {
 	[Serializable]
 	public class Issue

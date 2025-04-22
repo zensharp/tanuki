@@ -1,14 +1,14 @@
 name: Deploy NuGet Package
 
-on:
-  push:
-    tags:
-      - 'v*'
-
 env:
   DOCKER_PROJECT_DIR: .
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   deploy-image:

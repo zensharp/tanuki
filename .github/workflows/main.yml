@@ -7,10 +7,9 @@ env:
   NUGET_API_KEY: ${{secrets.GITLAB_ACCESS_TOKEN}}
 
 on:
-  create:
+  push:
     tags:
-      - v*
-  workflow_dispatch:
+      - 'v*'
 
 jobs:
   publish:

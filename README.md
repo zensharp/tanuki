@@ -2,28 +2,28 @@
 > GitLab artifact utilities
 
 ## File Transformations
-### Transform a Unity Project Auditor report to Code Climate 
+### Transform between Report Formats
 ```shell
 # Unity Project Auditor to Code Climate
-tanuki transform report.project_auditor.json [--from unity.projectauditor] -o report.codeclimate.json
+tanuki transform report.json [--from unity.projectauditor] [-o codeclimate.json]
 
-# Unity Test runner to Code Climate
-tanuki transform report.unity.json --from unity.testing -o report.gitlab.json
+# Unity Test runner to GitLab Test reports
+tanuki transform report.json --from unity.testing [-o gitlab.json]
 ```
 
 ## File Operations
 ### Edit a report
 ```shell
-tanuki edit report.json [--base-url "BaseUrl"] [--engine "Enforcer"]
+tanuki edit report.json [-o edited.json] [--location-prefix "src/Assets"] [--engine "Project Auditor"]
 ```
 
 ### Merge Code Climate reports
 ```shell
-tanuki merge [-o merged.codeclimate.json] a.codeclimate.json b.codeclimate.json
+tanuki merge a.json b.json ... c.json [-o merged.json]
 ```
 
 ## Code Quality Report
 ### Transform a Code Climate report to HTML
 ```shell
-tanuki html report.codeclimate.json [-o public]
+tanuki html report.json [--base-url "https://docs.example.com"] [-o public] 
 ```

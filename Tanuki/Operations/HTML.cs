@@ -15,10 +15,10 @@ namespace Tanuki.Operations
 		[Verb("html", HelpText = "Code Quality operations.")]
 		public class Options
 		{
-			[Option('i', "input", HelpText = "Path to target file/folder.", Required = true)]
+			[Value(0)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to output file/folder.", Required = false)]
-			public string outputPath { get; set; }
+			public string outputPath { get; set; } = "public";
 			[Option("base-url")]
 			public string baseUrl { get; set; }
 			public string title { get; set; } = "Code Quality Report";
@@ -91,8 +91,8 @@ namespace Tanuki.Operations
 			}
 			htmlText = GetValueRegex("smells").Replace(htmlText, issuesSection);
 			
-			Macros.CopyDirectory("templates/html", "public");
-			File.WriteAllText("public/index.html", htmlText);
+			Macros.CopyDirectory("templates/html", options.outputPath);
+			File.WriteAllText($"{options.outputPath}/index.html", htmlText);
 			
 			EmitFilters(categories, engines);
 		}
@@ -203,7 +203,7 @@ namespace Tanuki.Operations
 			// Everything
 			writer.WriteLine(".filter-category-all.filter-engine-all > li { display: block; }");
 			
-			File.WriteAllText("public/filter.css", writer.ToString());
+			File.WriteAllText($"{options.outputPath}/filter.css", writer.ToString());
 		}
 				
 		static Regex GetValueRegex(string text, RegexOptions options = RegexOptions.Multiline)

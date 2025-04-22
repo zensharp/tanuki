@@ -12,11 +12,11 @@ namespace Tanuki.Transformers
 			}
 			if (text.Equals("moderate", System.StringComparison.InvariantCultureIgnoreCase))
 			{
-				return "minor";
+				return "major";
 			}
 			if (text.Equals("major", System.StringComparison.InvariantCultureIgnoreCase))
 			{
-				return "major";
+				return "critical";
 			}
 			
 			return text.ToLower();

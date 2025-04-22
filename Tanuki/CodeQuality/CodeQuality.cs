@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using CommandLine;
 using Newtonsoft.Json;
 using Tanuki.CodeQuality.Models;
@@ -41,6 +42,7 @@ namespace Tanuki.CodeQuality
 			var reportText = File.ReadAllText(path);
 			var issues = JsonConvert.DeserializeObject<List<Issue>>(reportText)
 				.OrderByDescending(x => Issue.SeverityToInt(x.severity))
+				.ThenBy(x => x.code)
 				.ToList();
 			var categories = issues
 				.Select(x => x.category)
@@ -116,7 +118,8 @@ namespace Tanuki.CodeQuality
 			{
 				titleString += " " + issue.description;
 			}
-			text = ReplaceOrEmpty(text, "issue.title", titleString.Trim());
+			titleString = HttpUtility.HtmlEncode(titleString.Trim());
+			text = ReplaceOrEmpty(text, "issue.title", titleString);
 			
 			// Issue "found in"
 			string foundInString = null;

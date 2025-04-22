@@ -10,7 +10,7 @@ namespace Tanuki.Transformers
 {
 	public class Transform
 	{
-		[Verb("transform", HelpText = "Transform reports between different formats.")]
+		[Verb("transform", HelpText = "Transforms a report into a Code Climate report.")]
 		public class Options
 		{
 			[Option('i', "input", HelpText = "Source file path")]
@@ -56,8 +56,9 @@ namespace Tanuki.Transformers
 					{
 						path = t["location"]["path"].ToString(),
 					};
+					int begin = int.Parse(t["location"]["line"].ToString());
 					location.lines = new Issue.Location.Lines();
-					location.lines.begin = int.Parse(t["location"]["line"].ToString());
+					location.lines.begin = begin;
 				}
 				catch
 				{
@@ -85,7 +86,17 @@ namespace Tanuki.Transformers
 			}
 			
 			var destText = JsonConvert.SerializeObject(models);
-			File.WriteAllText("codeclimate.json", destText);
+			File.WriteAllText(GetOutputPath(), destText);
+		}
+		
+		string GetOutputPath()
+		{
+			if (string.IsNullOrEmpty(options.output))
+			{
+				return "codeclimate.json";
+			}
+			
+			return options.output;
 		}
 	}
 }

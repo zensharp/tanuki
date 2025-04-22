@@ -95,13 +95,14 @@ namespace Tanuki.Operations
 			}
 			htmlText = GetValueRegex("smells").Replace(htmlText, issuesSection);
 			
+			// Filters
+			htmlText = EmitFilters(htmlText, categories, engines);
+			
 			Macros.CopyDirectory($"{templatesDir}/html", options.outputPath);
 			File.WriteAllText($"{options.outputPath}/index.html", htmlText);
-			
-			EmitFilters(categories, engines);
 		}
 		
-		string SmellString(string smellPartial, Issue issue)
+		string SmellString(string document, string smellPartial, Issue issue)
 		{
 			var text = smellPartial;
 			text = ReplaceOrEmpty(text, "issue.severity", issue.severity, "info");

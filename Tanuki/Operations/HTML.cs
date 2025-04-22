@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Web;
 using CommandLine;
@@ -20,7 +19,7 @@ namespace Tanuki.Operations
 			[Value(0)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to output file/folder.", Required = false)]
-			public string outputPath { get; set; } = "public";
+			public string outputPath { get; set; }
 			[Option("base-url")]
 			public string baseUrl { get; set; }
 			[Option("templates-dir")]
@@ -118,8 +117,7 @@ namespace Tanuki.Operations
 			// Filters
 			document = EmitFilters(document, categories, engines);
 			
-			Directory.CreateDirectory(options.outputPath);
-			File.WriteAllText($"{options.outputPath}/index.html", document);
+			Macros.WriteAllTextOrConsole(options.outputPath, document);
 		}
 		
 		string SmellString(string smellPartial, Issue issue)

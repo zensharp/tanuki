@@ -30,13 +30,35 @@ namespace Tanuki.Operations
 		
 		private readonly Options options;
 		
+		
+		private string[] severityIcons;
+		private string smellPartial;
+		private string noIssuesPartial;
+		private string documentTemplate;
+		
 		public HTML(Options options)
 		{
 			this.options = options;
 		}
+		
+		void LoadResources()
+		{
+			var templatesDir = string.IsNullOrEmpty(options.templatesDir) ? "templates" : options.templatesDir;
+			smellPartial = File.ReadAllText($"{templatesDir}/html/partials/smell.html");
+			noIssuesPartial = File.ReadAllText($"{templatesDir}/html/partials/no-issues.html");
+			documentTemplate = File.ReadAllText($"{templatesDir}/html/gl-code-quality-report.html");
+			severityIcons = new string[5];
+			severityIcons[0] = File.ReadAllText($"{templatesDir}/html/assets/severity-info.svg");
+			severityIcons[1] = File.ReadAllText($"{templatesDir}/html/assets/severity-minor.svg");
+			severityIcons[2] = File.ReadAllText($"{templatesDir}/html/assets/severity-major.svg");
+			severityIcons[3] = File.ReadAllText($"{templatesDir}/html/assets/severity-critical.svg");
+			severityIcons[4] = File.ReadAllText($"{templatesDir}/html/assets/severity-blocker.svg");
+		}
 
 		public void OnParse()
 		{
+			LoadResources();
+			
 			BuildHTML(options.inputPath);
 		}
 		
@@ -58,10 +80,7 @@ namespace Tanuki.Operations
 				.Distinct()
 				.ToList();
 			
-			var templatesDir = string.IsNullOrEmpty(options.templatesDir) ? "templates" : options.templatesDir;
-			var smellPartial = File.ReadAllText($"{templatesDir}/html/partials/smell.html");
-			var noIssuesPartial = File.ReadAllText($"{templatesDir}/html/partials/no-issues.html");
-			var document = File.ReadAllText($"{templatesDir}/html/gl-code-quality-report.html");
+			var document = documentTemplate;
 			
 			// Set title
 			document = GetValueRegex("project.name").Replace(document, options.title);
@@ -112,6 +131,10 @@ namespace Tanuki.Operations
 			text = ReplaceOrEmpty(text, "issue.category", issue.category);
 			text = ReplaceOrEmpty(text, "issue.category_slug", Macros.Slugify(issue.category));
 			text = ReplaceOrEmpty(text, "issue.engine_slug", Macros.Slugify(issue.engine));
+			
+			// Icons
+			var iconIndex = Issue.SeverityToInt(issue.severity);
+			text = GetValueRegex("issue.icon").Replace(text, severityIcons[iconIndex]);
 			
 			// Issue title
 			string titleString = null;

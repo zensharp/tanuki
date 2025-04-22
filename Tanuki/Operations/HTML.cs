@@ -22,6 +22,8 @@ namespace Tanuki.Operations
 			public string outputPath { get; set; } = "public";
 			[Option("base-url")]
 			public string baseUrl { get; set; }
+			[Option("templates-dir")]
+			public string templatesDir { get; set; }
 			public string title { get; set; } = "Code Quality Report";
 		}
 		
@@ -55,9 +57,10 @@ namespace Tanuki.Operations
 				.Distinct()
 				.ToList();
 			
-			var smellPartial = File.ReadAllText("templates/html/partials/smell.html");
-			var noIssuesPartial = File.ReadAllText("templates/html/partials/no-issues.html");
-			var htmlText = File.ReadAllText("templates/html/gl-code-quality-report.html");
+			var templatesDir = string.IsNullOrEmpty(options.templatesDir) ? "templates" : options.templatesDir;
+			var smellPartial = File.ReadAllText($"{templatesDir}/html/partials/smell.html");
+			var noIssuesPartial = File.ReadAllText($"{templatesDir}/html/partials/no-issues.html");
+			var htmlText = File.ReadAllText($"{templatesDir}/html/gl-code-quality-report.html");
 			
 			// Set title
 			htmlText = GetValueRegex("project.name").Replace(htmlText, options.title);
@@ -92,7 +95,7 @@ namespace Tanuki.Operations
 			}
 			htmlText = GetValueRegex("smells").Replace(htmlText, issuesSection);
 			
-			Macros.CopyDirectory("templates/html", options.outputPath);
+			Macros.CopyDirectory($"{templatesDir}/html", options.outputPath);
 			File.WriteAllText($"{options.outputPath}/index.html", htmlText);
 			
 			EmitFilters(categories, engines);

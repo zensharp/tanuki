@@ -190,15 +190,15 @@
 		<div class="container">
 			<div id="main-container">
 				<div class="issue-filters">
-					<label for="category-filter">Category</label>
+					<label for="category-filter">Filter by Category</label>
 					<select id="category-filter">
 						<option value="">All</option>
-						<%= category-filter -%>
+						<%= filter.categories -%>
 					</select>
-					<label for="engine-filter">Engine</label>
+					<label for="engine-filter">Filter by Engine</label>
 					<select id="engine-filter">
 						<option value="">All</option>
-						<%= engine-filter -%>
+						<%= filter.engines -%>
 					</select>
 				</div>
 				<ul id="smells">

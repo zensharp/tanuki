@@ -55,12 +55,26 @@ namespace Tanuki.CodeQuality
 				.Distinct()
 				.ToList();
 			
-			var htmlText = File.ReadAllText("templates/html/gl-code-quality-report.html");
 			var smellPartial = File.ReadAllText("templates/html/partials/smell.html");
 			var noIssuesPartial = File.ReadAllText("templates/html/partials/no-issues.html");
+			var htmlText = File.ReadAllText("templates/html/gl-code-quality-report.html");
 			
 			// Set title
 			htmlText = GetValueRegex("project.name").Replace(htmlText, "Jontron");
+			
+			// Filters
+			htmlText = GetValueRegex("filter.categories").Replace(htmlText, ToOptionslist(categories));
+			htmlText = GetValueRegex("filter.engines").Replace(htmlText, ToOptionslist(engines));
+			
+			string ToOptionslist(List<string> values)
+			{
+				return string.Join(Environment.NewLine, values.Select(ToOption));
+				
+				string ToOption(string c)
+				{
+					return $"<option value=\"{Slugify(c)}\">{c}</option>";
+				}
+			}
 			
 			// Smells sections
 			string issuesSection;
@@ -78,7 +92,8 @@ namespace Tanuki.CodeQuality
 			}
 			htmlText = GetValueRegex("smells").Replace(htmlText, issuesSection);
 			
-			File.WriteAllText("templates/html/output.html", htmlText);
+			Macros.CopyDirectory("templates/html", "public");
+			File.WriteAllText("public/index.html", htmlText);
 			
 			EmitFilters(categories, engines);
 		}
@@ -137,42 +152,46 @@ namespace Tanuki.CodeQuality
 		
 		void EmitFilters(List<string> categories, List<string> engines)
 		{
+			// Locals
 			categories = categories.Select(Slugify).ToList();
 			engines = engines.Select(Slugify).ToList();
 			var categoriesWithAll = categories.Prepend("all").ToList();
 			var enginesWithAll = engines.Prepend("all").ToList();
 			
-			Console.WriteLine("BEGIN filter.css");
+			var writer = new StringWriter();
 			foreach (var category in categories)
 			{
-				Console.WriteLine($".filter-category-{category} > li,");	
+				writer.WriteLine($".filter-category-{category} > li,");	
 			}
 			foreach (var engine in engines)
 			{
-				Console.WriteLine($".filter-engine-{engine} > li,");	
+				writer.WriteLine($".filter-engine-{engine} > li,");	
 			}
+			writer.WriteLine(".filter-none > li { display: none; }");
+			writer.WriteLine();
 			
-			Console.WriteLine(".filter-none > li { display: none; }");
-			Console.WriteLine();
-			
+			// Engines
 			foreach (var engine in engines)
 			{
-				Console.WriteLine($".filter-category-all.filter-engine-{engine} > li[data-engine=\"{engine}\"],");
+				writer.WriteLine($".filter-category-all.filter-engine-{engine} > li[data-engine=\"{engine}\"],");
 			}
+			// Categories
 			foreach (var category in categories)
 			{
-				Console.WriteLine($".filter-category-{category}.filter-engine-all > li[data-categories~=\"{category}\"],");
+				writer.WriteLine($".filter-category-{category}.filter-engine-all > li[data-categories~=\"{category}\"],");
 			}
-			
+			// Categories + engines
 			foreach (var category in categoriesWithAll)
 			{
 				foreach (var engine in enginesWithAll)
 				{
-					Console.WriteLine($".filter-category-{category}.filter-engine-{engine} > li[data-categories~=\"{category}\"][data-engine=\"{engine}\"],");
+					writer.WriteLine($".filter-category-{category}.filter-engine-{engine} > li[data-categories~=\"{category}\"][data-engine=\"{engine}\"],");
 				}
 			}
+			// Everything
+			writer.WriteLine(".filter-category-all.filter-engine-all > li { display: block; }");
 			
-			Console.WriteLine(".filter-category-all.filter-engine-all > li { display: block; }");
+			File.WriteAllText("public/filter.css", writer.ToString());
 		}
 		
 		static string Slugify(string x)

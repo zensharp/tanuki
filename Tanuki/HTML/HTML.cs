@@ -19,8 +19,8 @@ namespace Tanuki.HTML
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to output file/folder.", Required = false)]
 			public string outputPath { get; set; }
-			[Option("url-prefix")]
-			public string urlPrefix { get; set; }
+			[Option("base-url")]
+			public string baseUrl { get; set; }
 			public string title { get; set; } = "Code Quality Report";
 		}
 		
@@ -130,7 +130,7 @@ namespace Tanuki.HTML
 				{
 					sourceFileRelativePathWithLineNumber += $"#L{issue.location.lines.begin}";
 				}
-				var sourceFileUrl = $"{options.urlPrefix}/{sourceFileRelativePathWithLineNumber}";
+				var sourceFileUrl = $"{options.baseUrl}/{sourceFileRelativePathWithLineNumber}";
 				
 				// Create HTML
 				foundInString = $"Found in <a href=\"{sourceFileUrl}\">{sourceFileRelativePath}</a>";

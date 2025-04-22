@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using CommandLine;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Tanuki.Models;
 
 namespace Tanuki.Merging
@@ -13,7 +11,7 @@ namespace Tanuki.Merging
 		[Verb("merge", HelpText = "Transforms a report into a Code Climate report.")]
 		public class Options
 		{
-			[Option('i', "input", HelpText = "Path to source file.", Required = false)]
+			[Value(0)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to destination file.", Required = false)]
 			public string outputPath { get; set; }

@@ -13,7 +13,7 @@ namespace Tanuki.Transformers
 		[Verb("transform", HelpText = "Transforms a report into a Code Climate report.")]
 		public class Options
 		{
-			[Option('i', "input", HelpText = "Path to source file.", Required = true)]
+			[Value(0)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to destination file.", Required = false)]
 			public string outputPath { get; set; }

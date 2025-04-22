@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Code Climate Report for <%= project.name %>
+		<title>Code Climate Report for Code Quality Report
 		</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-core.min.js"
@@ -569,7 +569,27 @@
 		</style>
 		<!-- Filters -->
 		<style>
-			<%= filter.css -%>
+			.filter-category-assets > li,
+.filter-category-performance > li,
+.filter-engine-enforcer > li,
+.filter-engine-project_auditor > li,
+.filter-none > li { display: none; }
+
+.filter-category-all.filter-engine-enforcer > li[data-engine="enforcer"],
+.filter-category-all.filter-engine-project_auditor > li[data-engine="project_auditor"],
+.filter-category-assets.filter-engine-all > li[data-categories~="assets"],
+.filter-category-performance.filter-engine-all > li[data-categories~="performance"],
+.filter-category-all.filter-engine-all > li[data-categories~="all"][data-engine="all"],
+.filter-category-all.filter-engine-enforcer > li[data-categories~="all"][data-engine="enforcer"],
+.filter-category-all.filter-engine-project_auditor > li[data-categories~="all"][data-engine="project_auditor"],
+.filter-category-assets.filter-engine-all > li[data-categories~="assets"][data-engine="all"],
+.filter-category-assets.filter-engine-enforcer > li[data-categories~="assets"][data-engine="enforcer"],
+.filter-category-assets.filter-engine-project_auditor > li[data-categories~="assets"][data-engine="project_auditor"],
+.filter-category-performance.filter-engine-all > li[data-categories~="performance"][data-engine="all"],
+.filter-category-performance.filter-engine-enforcer > li[data-categories~="performance"][data-engine="enforcer"],
+.filter-category-performance.filter-engine-project_auditor > li[data-categories~="performance"][data-engine="project_auditor"],
+.filter-category-all.filter-engine-all > li { display: block; }
+
 		</style>
 	</head>
 
@@ -578,7 +598,7 @@
 			<div class="container">
 				<a id="logo" href="https://github.com/zensharp/tanuki/">Tanuki</a>
 				<h1>
-					<%= project.name -%>
+					Code Quality Report
 				</h1>
 			</div>
 		</header>
@@ -588,16 +608,78 @@
 					<label for="category-filter">Filter by Category</label>
 					<select id="category-filter">
 						<option value="">All</option>
-						<%= filter.categories -%>
+						<option value="assets">Assets</option>
+<option value="performance">Performance</option>
 					</select>
 					<label for="engine-filter">Filter by Linter</label>
 					<select id="engine-filter">
 						<option value="">All</option>
-						<%= filter.engines -%>
+						<option value="enforcer">Enforcer</option>
+<option value="project_auditor">Project Auditor</option>
 					</select>
 				</div>
 				<ul id="smells">
-					<%= smells -%>
+					<li
+	data-categories="assets"
+	data-engine="enforcer">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><path fill="#772E1B" fill-rule="evenodd" d="M6.706.185l4.088 2.31c.437.246.706.702.706 1.195v4.62c0 .493-.269.949-.706 1.195l-4.088 2.31a1.438 1.438 0 0 1-1.412 0l-4.088-2.31A1.376 1.376 0 0 1 .5 8.31V3.69c0-.493.269-.949.706-1.195L5.294.185a1.438 1.438 0 0 1 1.412 0z"/></svg></span>CS0052 Something blocking
+	</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt</a> by <a href="">Enforcer</a>
+	</div>
+</li><li
+	data-categories="performance"
+	data-engine="enforcer">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><path fill="#772E1B" fill-rule="evenodd" d="M6.706.185l4.088 2.31c.437.246.706.702.706 1.195v4.62c0 .493-.269.949-.706 1.195l-4.088 2.31a1.438 1.438 0 0 1-1.412 0l-4.088-2.31A1.376 1.376 0 0 1 .5 8.31V3.69c0-.493.269-.949.706-1.195L5.294.185a1.438 1.438 0 0 1 1.412 0z"/></svg></span>CS0052 Another blocking
+	</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt</a> by <a href="">Enforcer</a>
+	</div>
+</li><li
+	data-categories="assets"
+	data-engine="enforcer">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><path fill="#B13C23" fill-rule="evenodd" d="M6.713.295l4.992 4.992a1.008 1.008 0 0 1 0 1.426l-4.992 4.992a1.008 1.008 0 0 1-1.426 0L.295 6.713a1.008 1.008 0 0 1 0-1.426L5.287.295a1.008 1.008 0 0 1 1.426 0z"/></svg></span>CS0051 Something critical
+	</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt</a> by <a href="">Enforcer</a>
+	</div>
+</li><li
+	data-categories="assets"
+	data-engine="enforcer">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><path fill="#B7802F" fill-rule="evenodd" d="M5.04 10.454L.24 3.182c-.398-.603-.29-1.457.24-1.91C.688 1.097.94 1 1.2 1h9.6c.663 0 1.2.61 1.2 1.364 0 .295-.084.582-.24.818l-4.8 7.272c-.398.603-1.15.725-1.68.273a1.295 1.295 0 0 1-.24-.273z"/></svg></span>CS0053 Something kinda important
+	</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt</a> by <a href="">Enforcer</a>
+	</div>
+</li><li
+	data-categories="performance"
+	data-engine="enforcer">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><circle cx="6" cy="6" r="6" fill="#CF9846" fill-rule="evenodd"/></svg></span>CS0057 Something minor
+	</h2>
+	This issue has some <b>HTML</b> details <i>with</i> it.
+	<div class="found-in">
+		Found in <a href="/assets.txt">assets.txt</a> by <a href="">Enforcer</a>
+	</div>
+</li><li
+	data-categories="performance"
+	data-engine="project_auditor">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><path fill="#3A73C5" fill-rule="evenodd" d="M12 6A6 6 0 1 1 0 6a6 6 0 0 1 12 0zM6.75 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM6 5.25a.75.75 0 0 0-.75.75v2.25a.75.75 0 1 0 1.5 0V6A.75.75 0 0 0 6 5.25z"/></svg></span>CS0054 Something very inconsequential
+	</h2>
+	
+	<div class="found-in">
+		Found in <a href="/features.txt#L1">features.txt</a> by <a href="">Project Auditor</a>
+	</div>
+</li>
 				</ul>
 				<div id="filtered-out-message">All issues have been filtered out</div>
 			</div>

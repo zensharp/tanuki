@@ -8,7 +8,7 @@ using CommandLine;
 using Newtonsoft.Json;
 using Tanuki.Models;
 
-namespace Tanuki.HTML
+namespace Tanuki.Operations
 {
 	public class HTML
 	{

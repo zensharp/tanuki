@@ -4,7 +4,7 @@ using CommandLine;
 using Newtonsoft.Json;
 using Tanuki.Models;
 
-namespace Tanuki.Merging
+namespace Tanuki.Operations
 {
 	public class Edit
 	{
@@ -52,17 +52,7 @@ namespace Tanuki.Merging
 			}
 			
 			var destText = JsonConvert.SerializeObject(issues);
-			File.WriteAllText(GetOutputPath(), destText);
-		}
-		
-		string GetOutputPath()
-		{
-			if (string.IsNullOrEmpty(options.outputPath))
-			{
-				return "merged.json";
-			}
-			
-			return options.outputPath;
+			Macros.WriteAllTextOrConsole(options.outputPath, destText);
 		}
 	}
 }

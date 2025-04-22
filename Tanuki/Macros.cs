@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 
@@ -59,6 +60,18 @@ namespace Tanuki
 			x = x.Replace(" ", "_");
 			x = x.ToLower();
 			return x;
+		}
+	
+		public static void WriteAllTextOrConsole(string path, string content)
+		{
+			if (string.IsNullOrEmpty(path))
+			{
+				Console.WriteLine(content);
+			}
+			else
+			{
+				File.WriteAllText(path, content);
+			}
 		}
 	}
 }

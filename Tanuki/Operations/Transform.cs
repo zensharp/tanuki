@@ -5,8 +5,9 @@ using CommandLine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Tanuki.Models;
+using Tanuki.Transformers;
 
-namespace Tanuki.Transformers
+namespace Tanuki.Operations
 {
 	public class Transform
 	{
@@ -86,17 +87,7 @@ namespace Tanuki.Transformers
 			}
 			
 			var destText = JsonConvert.SerializeObject(models);
-			File.WriteAllText(GetOutputPath(), destText);
-		}
-		
-		string GetOutputPath()
-		{
-			if (string.IsNullOrEmpty(options.outputPath))
-			{
-				return "codeclimate.json";
-			}
-			
-			return options.outputPath;
+			Macros.WriteAllTextOrConsole(options.outputPath, destText);
 		}
 	}
 }

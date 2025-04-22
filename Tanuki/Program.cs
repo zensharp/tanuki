@@ -1,7 +1,5 @@
 ﻿using CommandLine;
-using Tanuki.HTML;
-using Tanuki.Merging;
-using Tanuki.Transformers;
+using Tanuki.Operations;
 
 Parser.Default.ParseArguments<Transform.Options, Merge.Options, Edit.Options, HTML.Options>(args)
 	.WithParsed<Transform.Options>(x => new Transform(x).OnParse())

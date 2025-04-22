@@ -24,6 +24,7 @@ namespace Tanuki.Operations
 			public string baseUrl { get; set; }
 			[Option("templates-dir")]
 			public string templatesDir { get; set; }
+			[Option("title")]
 			public string title { get; set; } = "Code Quality Report";
 		}
 		

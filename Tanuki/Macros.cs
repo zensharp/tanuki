@@ -70,6 +70,12 @@ namespace Tanuki
 			}
 			else
 			{
+				var directory = Path.GetDirectoryName(path);
+				if (!string.IsNullOrEmpty(directory))
+				{
+					Directory.CreateDirectory(directory);
+				}
+				
 				File.WriteAllText(path, content);
 			}
 		}

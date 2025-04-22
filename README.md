@@ -25,7 +25,7 @@ tanuki merge a.json b.json ... c.json [-o merged.json]
 ## Code Quality Report
 ### Transform a Code Climate report to HTML
 ```shell
-tanuki html report.json [--base-url "https://docs.example.com"] [-o public] 
+tanuki html report.json [--base-url "https://docs.example.com"] [-o index.html] [--title "My Code Quality Report"]
 ```
 
 ---

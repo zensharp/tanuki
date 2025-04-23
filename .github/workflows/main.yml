@@ -11,10 +11,6 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  id-token: write
-  pages: write
-
 jobs:
   publish:
     runs-on: ubuntu-latest

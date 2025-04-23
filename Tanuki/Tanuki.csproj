@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+	<OutputType>Exe</OutputType>
+	<TargetFramework>net8.0</TargetFramework>
+	
+	<PackAsTool>true</PackAsTool>
+	<ToolCommandName>tanuki</ToolCommandName>
+	<PackageOutputPath>./nupkg</PackageOutputPath>
+</PropertyGroup>
+
+<ItemGroup>
+	<EmbeddedResource Include="templates/**/*" />
+</ItemGroup>
+
+<ItemGroup>
+	<PackageReference Include="CommandLineParser" Version="2.9.1" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	<PackageReference Include="YamlDotNet" Version="15.1.4" />
+</ItemGroup>
+
+</Project>

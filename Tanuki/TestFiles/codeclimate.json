@@ -1,0 +1,84 @@
+[
+	{
+		"code": "CS0054",
+		"category": "Performance",
+		"description": "Something very inconsequential",
+		"linter": "Project Auditor",
+		"fingerprint": "2815696ecbf1c96e6894b779456d330a",
+		"severity": "info",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0057",
+		"category": "Performance",
+		"description": "Something minor",
+		"body": "This issue has some <b>HTML</b> details <i>with</i> it.",
+		"linter": "Enforcer",
+		"fingerprint": "3815696ecbf1c96e6894b779456d330c",
+		"severity": "minor",
+		"location": {
+			"path": "assets.txt"
+		}
+	},
+	{
+		"code": "CS0053",
+		"category": "Assets",
+		"description": "Something kinda important",
+		"linter": "Enforcer",
+		"fingerprint": "4815696ecbf1c96e6894b779456d330d",
+		"severity": "major",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0051",
+		"category": "Assets",
+		"description": "Something critical",
+		"linter": "Enforcer",
+		"fingerprint": "5815696ecbf1c96e6894b779456d330f",
+		"severity": "critical",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0052",
+		"category": "Assets",
+		"description": "Something blocking",
+		"linter": "Enforcer",
+		"fingerprint": "6815696ecbf1c96e6894b779456d330d",
+		"severity": "blocker",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	},
+	{
+		"code": "CS0052",
+		"category": "Performance",
+		"description": "Another blocking",
+		"linter": "Enforcer",
+		"fingerprint": "7815696ecbf1c96e6894b779456d330b`",
+		"severity": "blocker",
+		"location": {
+			"path": "features.txt",
+			"lines": {
+				"begin": 1
+			}
+		}
+	}
+]

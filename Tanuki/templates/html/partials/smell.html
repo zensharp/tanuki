@@ -1,0 +1,11 @@
+<li
+	data-categories="<%= issue.category_slug %>"
+	data-engine="<%= issue.engine_slug %>">
+	<h2>
+		<span class="smells-title"><svg width="12" height="12"><%= issue.icon %></svg></span><%= issue.title %>
+	</h2>
+	<%= issue.body -%>
+	<div class="found-in">
+		<%= issue.location -%>
+	</div>
+</li>

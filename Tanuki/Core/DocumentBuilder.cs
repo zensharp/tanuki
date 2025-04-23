@@ -42,8 +42,8 @@ namespace Tanuki.Core
 			// Rewrite title
 			document.Replace("project.name", title);
 			
-			// Build filters CSS
-			document.Replace("filter.css", BuildFiltersCss(categories, linters));
+			// Build filters selectors
+			document.Replace("filter.css", BuildFiltersSelectors(categories, linters));
 			
 			// Build filters dropdown
 			document.Replace("filter.categories", BuildHtmlOptionsList(categories));
@@ -65,7 +65,7 @@ namespace Tanuki.Core
 			return $"<option value=\"{Macros.Slugify(name)}\">{name}</option>";
 		}
 		
-		static string BuildFiltersCss(List<string> categories, List<string> linters)
+		static string BuildFiltersSelectors(List<string> categories, List<string> linters)
 		{
 			// Locals
 			var writer = new StringWriter();

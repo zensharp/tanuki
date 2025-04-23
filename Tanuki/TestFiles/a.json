@@ -3,13 +3,13 @@
 		"code": "CS0024",
 		"category": "Code",
 		"description": "This came from a.json",
-		"linter": "Project Auditor",
+		"linter": "Enforcer",
 		"fingerprint": "2815696ecbf1c96e6894b779456d330a",
 		"severity": "info",
 		"location": {
-			"path": "features.txt",
+			"path": "a.json",
 			"lines": {
-				"begin": 1
+				"begin": 10
 			}
 		}
 	}

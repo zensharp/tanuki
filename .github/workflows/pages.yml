@@ -15,7 +15,7 @@ jobs:
         run: |
           dotnet run --project Tanuki -- transform Tanuki/TestFiles/projectauditor.json -o public.json
           dotnet run --project Tanuki -- merge Tanuki/TestFiles/a.json Tanuki/TestFiles/b.json public.json -o public.json
-          dotnet run --project Tanuki -- html public.json -o public/index.html
+          dotnet run --project Tanuki -- html public.json -o public/index.html --base-url "https://zensharp.github.io/tanuki"
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3

@@ -30,11 +30,13 @@ namespace Tanuki.Core
 				.Select(x => x.category)
 				.Where(x => !string.IsNullOrEmpty(x))
 				.Distinct()
+				.Order()
 				.ToList();
 			var linters = issues
 				.Select(x => x.linter)
 				.Where(x => !string.IsNullOrEmpty(x))
 				.Distinct()
+				.Order()
 				.ToList();
 			
 			// Rewrite title

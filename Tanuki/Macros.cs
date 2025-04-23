@@ -59,7 +59,7 @@ namespace Tanuki
 			}
 		}
 	
-		public static string GetLinterUrl(string linter)
+		public static string LookupLinterUrl(string linter)
 		{
 			string url;
 			url = Config.Instance?.LookupLinterUrl(linter);

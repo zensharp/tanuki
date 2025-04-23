@@ -199,7 +199,7 @@ namespace Tanuki.Core
 						// Linter
 						if (!string.IsNullOrEmpty(issue.linter))
 						{
-							var linterUrl = Macros.GetLinterUrl(issue.linter);
+							var linterUrl = Macros.LookupLinterUrl(issue.linter);
 							text += $" by <a href=\"{linterUrl}\">{issue.linter}</a>";
 						}
 					}

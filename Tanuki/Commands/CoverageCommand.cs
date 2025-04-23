@@ -10,7 +10,7 @@ namespace Tanuki.Commands
 		[Verb("coverage", HelpText = "Print code coverage percent to STDOUT.")]
 		public class Options
 		{
-			[Value(0, HelpText = "The file containing Cobertura coverage report.", Required = true)]
+			[Value(0, HelpText = "The Cobertura coverage report.", Required = true)]
 			public string inputPath { get; set; }
 			[Option("multiplier", HelpText = "Multiply the coverage value by this factor.")]
 			public double multiplier { get; set; } = 1.0;

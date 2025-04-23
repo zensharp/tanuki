@@ -3,6 +3,7 @@ Use Tanuki in your GitLab CI/CD pipelines to:
 * Transform a [Unity Test Runner](https://docs.unity3d.com/2018.3/Documentation/Manual/testing-editortestsrunner.html) report to a [GitLab JUnit report](https://docs.gitlab.com/ci/testing/unit_test_reports/)
 * Transform a [Unity Project Auditor](https://docs.unity3d.com/Packages/com.unity.project-auditor@1.0/manual/index.html) report to a [GitLab Code Quality report](https://docs.gitlab.com/ci/testing/code_quality/)
 * Generate a static HTML Code Quality report for [GitLab Merge Requests](https://docs.gitlab.com/ci/jobs/job_artifacts/#link-to-job-artifacts-in-the-merge-request-ui)
+	* [Demo](https://zensharp.github.io/tanuki)
 * Print code coverage of a Unity Cobertura coverage report to [GitLab Code Coverage](https://docs.gitlab.com/ci/testing/code_coverage/)
 
 # GitLab CI/CD
@@ -37,8 +38,6 @@ Run Unit Tests:
       tanuki coverage cobertura.xml --multiplier 100
   coverage: '/Code coverage is: \d+\.\d+/'
   artifacts:
-    paths:
-      - junit.xml
     reports:
       junit: junit.xml
 ```
@@ -77,9 +76,9 @@ tanuki transform report.xml -o junit.xml
 tanuki edit report.json [-o edited.json] [--location-prefix "src/Assets"] [--linter "Project Auditor"]
 ```
 
-### Combine Code Climate Report
+### Combine Code Climate Reports
 ```shell
-tanuki merge a.json b.json ... c.json [-o merged.json]
+tanuki merge a.json b.json ... z.json [-o merged.json]
 ```
 
 ### Generate a Static HTML Report

@@ -94,6 +94,17 @@ tanuki coverage cobertura.xml [--multiplier 100.0]
 Code coverage is: 0.897
 ```
 
+# Experimental Features
+### Delete entries
+```shell
+tanuki delete report.json --where ".path == ^Packages/"
+```
+
+### Assert
+```shell
+tanuki assert report.json --none ".severity == Blocker"
+```
+
 # Advanced Configuration
 Tanuki will search for a configuration file in the following order:
 1. `./.tanuki.yml`

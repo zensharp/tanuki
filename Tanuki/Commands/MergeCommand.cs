@@ -11,7 +11,7 @@ namespace Tanuki.Commands
 		[Verb("merge", HelpText = "Combine code quality reports.")]
 		public class Options
 		{
-			[Value(0)]
+			[Value(0, HelpText = "The Code Quality reports.", Required = true)]
 			public IEnumerable<string> operands { get; set; }
 			[Option('o', "output", HelpText = "Path to destination file.", Required = false)]
 			public string outputPath { get; set; }

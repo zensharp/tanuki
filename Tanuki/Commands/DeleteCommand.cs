@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using CommandLine;
 using Newtonsoft.Json;
 using Tanuki.Core;
@@ -15,7 +13,7 @@ namespace Tanuki.Commands
 		[Verb("delete", HelpText = "Delete elements in a report given some critieria (experimental).", Hidden = true)]
 		public class Options
 		{
-			[Value(0)]
+			[Value(0, HelpText = "The Code Quality report.", Required = true)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to destination file.", Required = false)]
 			public string outputPath { get; set; }

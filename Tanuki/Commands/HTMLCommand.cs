@@ -16,7 +16,7 @@ namespace Tanuki.Commands
 		[Verb("html", HelpText = "Generate a static HTML report.")]
 		public class Options
 		{
-			[Value(0)]
+			[Value(0, HelpText = "The Code Quality report.", Required = true)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to output file/folder.", Required = false)]
 			public string outputPath { get; set; }

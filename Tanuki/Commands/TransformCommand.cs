@@ -9,7 +9,7 @@ namespace Tanuki.Commands
 		[Verb("transform", HelpText = "Transform a report into GitLab formats.")]
 		public class Options
 		{
-			[Value(0)]
+			[Value(0, HelpText = "The Code Quality report.", Required = true)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to destination file.", Required = false)]
 			public string outputPath { get; set; }

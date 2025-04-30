@@ -1,7 +1,8 @@
 ﻿using CommandLine;
 using Tanuki.Commands;
 
-Parser.Default.ParseArguments<CoverageCommand.Options, DeleteCommand.Options, EditCommand.Options, HTMLCommand.Options, MergeCommand.Options, TransformCommand.Options>(args)
+Parser.Default.ParseArguments<AssertCommand.Options, CoverageCommand.Options, DeleteCommand.Options, EditCommand.Options, HTMLCommand.Options, MergeCommand.Options, TransformCommand.Options>(args)
+	.WithParsed<AssertCommand.Options>(x => new AssertCommand(x).OnParse())
 	.WithParsed<CoverageCommand.Options>(x => new CoverageCommand(x).OnParse())
 	.WithParsed<DeleteCommand.Options>(x => new DeleteCommand(x).OnParse())
 	.WithParsed<EditCommand.Options>(x => new EditCommand(x).OnParse())

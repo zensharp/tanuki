@@ -10,7 +10,7 @@ namespace Tanuki.Models.CodeClimate
 		public string description;
 		public string fingerprint;
 		public string severity;
-		public Location location;
+		public Location location = new Location();
 		// Extensions
 		public string category;
 		public string linter;
@@ -20,12 +20,12 @@ namespace Tanuki.Models.CodeClimate
 		public class Location
 		{
 			public string path;
-			public Lines lines;
-			
+			public Lines lines = new Lines();
+
 			[Serializable]
 			public class Lines
 			{
-				public int begin;
+				public int begin = 0;
 			}
 		}
 	}

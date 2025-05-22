@@ -49,7 +49,8 @@ namespace Tanuki.Commands
 				}
 			}
 			
-			var outputText = JsonConvert.SerializeObject(outputIssues);
+			var formatting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, };
+			var outputText = JsonConvert.SerializeObject(outputIssues, formatting);
 			Macros.WriteAllTextOrConsole(options.outputPath, outputText);
 		}
 	}

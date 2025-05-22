@@ -65,8 +65,9 @@ namespace Tanuki.Core
 				
 				issues.Add(model);
 			}
-			
-			var outputText = JsonConvert.SerializeObject(issues);
+
+			var formatting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, };
+			var outputText = JsonConvert.SerializeObject(issues, formatting);
 			Macros.WriteAllTextOrConsole(outputPath, outputText);
 		}
 	}

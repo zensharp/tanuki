@@ -39,7 +39,7 @@ namespace Tanuki.Core
 			}
 			
 			var text = template;
-			text = text.Replace(".code", issue.code ?? string.Empty);
+			text = text.Replace(".check_name", issue.check_name ?? string.Empty);
 			text = text.Replace(".body", issue.body ?? string.Empty);
 			text = text.Replace(".category", issue.category ?? string.Empty);
 			text = text.Replace(".description", issue.description ?? string.Empty);

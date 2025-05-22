@@ -42,7 +42,7 @@ namespace Tanuki.Commands
 			var reportText = File.ReadAllText(options.inputPath);
 			var issues = JsonConvert.DeserializeObject<List<Issue>>(reportText)
 				.OrderByDescending(x => Enum.Parse<Severity>(x.severity))
-				.ThenBy(x => x.code)
+				.ThenBy(x => x.check_name)
 				.ToList();
 			
 			var document = builder.Build(issues);

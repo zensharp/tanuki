@@ -6,7 +6,7 @@ namespace Tanuki.Models.CodeClimate
 	public class Issue
 	{
 		// CodeClimate specification
-		public string code;
+		public string check_name;
 		public string description;
 		public string fingerprint;
 		public string severity;

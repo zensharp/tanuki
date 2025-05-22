@@ -49,7 +49,7 @@ namespace Tanuki.Core
 				// Create object
 				var model = new Issue()
 				{
-					code = t["descriptorId"].ToString(),
+					check_name = t["descriptorId"].ToString(),
 					category = t["category"].ToString(),
 					description = t["description"].ToString(),
 					location = location,
@@ -58,7 +58,7 @@ namespace Tanuki.Core
 				};
 				
 				// Compute fingerprint
-				var hashString = model.code;
+				var hashString = model.check_name;
 				hashString += model.location?.path;
 				hashString += model.location?.lines?.begin;
 				model.fingerprint = Macros.CreateMD5Hash(hashString);

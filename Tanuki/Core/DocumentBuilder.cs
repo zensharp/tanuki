@@ -160,9 +160,9 @@ namespace Tanuki.Core
 				string Header()
 				{
 					string text = null;
-					if (!string.IsNullOrEmpty(issue.code))
+					if (!string.IsNullOrEmpty(issue.check_name))
 					{
-						text = issue.code;
+						text = issue.check_name;
 					}
 					if (!string.IsNullOrWhiteSpace(issue.description))
 					{

@@ -14,7 +14,7 @@ namespace Tanuki.Core
 			public List<string> exclude = new List<string>();
 		}
 
-		public Filter filter;
+		public Filter filter = new Filter();
 		
 		public static Tanukifile Read(string path)
 		{	

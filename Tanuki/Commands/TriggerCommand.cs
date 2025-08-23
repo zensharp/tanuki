@@ -23,6 +23,23 @@ namespace Tanuki.Commands
 			public string tanukifile { get; set; }
 		}
 
+		class FilterGroup
+		{
+			readonly List<IssueFilterer> filterers;
+
+			public FilterGroup(Tanukifile.Filter.Exclude exclude)
+			{
+				filterers = exclude.conditions
+					.Select(x => new IssueFilterer(x))
+					.ToList();
+			}
+
+			public bool IsMatch(Issue issue)
+			{
+				return filterers.All(x => x.IsMatch(issue));
+			}
+		}
+
 		private readonly Options options;
 
 		public TriggerCommand(Options options)
@@ -37,18 +54,19 @@ namespace Tanuki.Commands
 			var outputIssues = new HashSet<Issue>(inputIssues);
 			var tanukifile = Tanukifile.Read(options.tanukifile);
 
-			var filterers = tanukifile.filter.exclude
-				.Select(x => new IssueFilterer(x))
+			var filtererGroups = tanukifile.filter.exclude
+				.Select(x => new FilterGroup(x))
 				.ToList();
 
-			for (int i = 0; i< inputIssues.Count; i++)
+			for (int i = 0; i < inputIssues.Count; i++)
 			{
 				var issue = inputIssues[i];
-				foreach (var filterer in filterers)
+				foreach (var filterer in filtererGroups)
 				{
 					if (filterer.IsMatch(issue))
 					{
 						outputIssues.Remove(issue);
+						break;
 					}
 				}
 			}

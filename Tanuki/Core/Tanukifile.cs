@@ -11,7 +11,13 @@ namespace Tanuki.Core
 		[Serializable]
 		public class Filter
 		{
-			public List<string> exclude = new List<string>();
+			public List<Exclude> exclude = new List<Exclude>();
+
+			public class Exclude
+			{
+				[YamlMember(Alias = "if")]
+				public List<string> conditions = new List<string>();
+			}
 		}
 
 		public Filter filter = new Filter();

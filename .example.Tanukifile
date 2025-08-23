@@ -1,4 +1,7 @@
 filter:
   exclude:
-    - ".severity == info"
-    - ".location.path == /bIgnored/b"
+    - if:
+      - ".location.path == /bIgnored/b"
+    - if:
+      - ".code == CS0054"
+      - ".location.path == /bTemp/b"

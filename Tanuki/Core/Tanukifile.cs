@@ -28,6 +28,7 @@ namespace Tanuki.Core
 			if (File.Exists(path))
 			{
 				var deserializer = new DeserializerBuilder()
+					.WithTypeConverter(new TanukiYamlTypeConvert<string>())
 					.Build();
 				var text = File.ReadAllText(path);
 				tanukifile = deserializer

@@ -95,6 +95,15 @@ Code coverage is: 0.897
 ```
 
 # Experimental Features
+### Trigger
+Add a *Tanukifile* at `.tanuki/Tanukifile`. See [this example](https://github.com/zensharp/tanuki/blob/main/.example.Tanukifile)
+
+Then trigger the file with:
+
+```shell
+tanuki trigger
+```
+
 ### Delete entries
 ```shell
 tanuki delete report.json --where ".path == ^Packages/"
@@ -104,6 +113,19 @@ tanuki delete report.json --where ".path == ^Packages/"
 ```shell
 tanuki assert report.json --none ".severity == Blocker"
 ```
+
+# Tanuki Query Language
+Tanuki offers a simple syntax language for querying issues. For example:
+
+Here are the available patterns (see also [IssueFilterer.cs](https://github.com/zensharp/tanuki/blob/main/Tanuki/Core/IssueFilterer.cs)):
+* `.body`
+* `.category`
+* `.check_name`
+* `.description`
+* `.fingerprint`
+* `.linter`
+* `.location.path`
+* `.severity`
 
 # Advanced Configuration
 Tanuki will search for a configuration file in the following order:

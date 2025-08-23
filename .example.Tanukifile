@@ -1,0 +1,4 @@
+filter:
+  exclude:
+    - ".severity == info"
+    - ".location.path == /bIgnored/b"

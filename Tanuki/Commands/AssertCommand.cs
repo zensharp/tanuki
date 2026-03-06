@@ -81,7 +81,7 @@ namespace Tanuki.Commands
 					pass = issues.Any(predicate.IsMatch);
 					break;
 				case Mode.None:
-					pass = !issues.All(predicate.IsMatch);
+					pass = !issues.Any(predicate.IsMatch);
 					break;
 			}
 			

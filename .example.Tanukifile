@@ -1,7 +1,7 @@
 filter:
   exclude:
     - if:
-      - ".location.path == /bIgnored/b"
+      - '.location.path == /bIgnored/b'
     - if:
-      - ".code == CS0054"
-      - ".location.path == /bTemp/b"
+      - '.check_name == CS0054'
+      - '.location.path == /bTemp/b'

@@ -1,3 +1,6 @@
 public/
 out/
 .tanuki/
+codequality.json
+out.json
+output.json

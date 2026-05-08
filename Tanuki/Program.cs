@@ -7,6 +7,7 @@ CoverageCommand.Options,
 DeleteCommand.Options,
 EditCommand.Options,
 HTMLCommand.Options,
+MarkdownCommand.Options,
 MergeCommand.Options,
 TransformCommand.Options,
 TriggerCommand.Options
@@ -16,6 +17,7 @@ TriggerCommand.Options
 	.WithParsed<DeleteCommand.Options>(x => new DeleteCommand(x).OnParse())
 	.WithParsed<EditCommand.Options>(x => new EditCommand(x).OnParse())
 	.WithParsed<HTMLCommand.Options>(x => new HTMLCommand(x).OnParse())
+	.WithParsed<MarkdownCommand.Options>(x => new MarkdownCommand(x).OnParse())
 	.WithParsed<MergeCommand.Options>(x => new MergeCommand(x).OnParse())
 	.WithParsed<TransformCommand.Options>(x => new TransformCommand(x).OnParse())
 	.WithParsed<TriggerCommand.Options>(x => new TriggerCommand(x).OnParse());

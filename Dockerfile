@@ -5,9 +5,9 @@ WORKDIR /staging
 
 # Install UV
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-COPY zensical /staging/zensical
-RUN uv --version
 ENV PATH="$PATH:/root/.local/bin"
+RUN uv --version
+COPY zensical /staging/zensical
 
 # Build application
 COPY Tanuki /staging/src

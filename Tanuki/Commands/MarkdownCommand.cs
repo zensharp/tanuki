@@ -17,7 +17,7 @@ namespace Tanuki.Commands
 			[Value(0, HelpText = "The Code Quality report.", Required = true)]
 			public string inputPath { get; set; }
 			[Option('o', "output", HelpText = "Path to output file/folder.", Required = false)]
-			public string outputPath { get; set; }
+			public string outputPath { get; set; } = "report.md";
 			[Option("base-url")]
 			public string baseUrl { get; set; }
 			[Option("title")]
@@ -73,8 +73,7 @@ namespace Tanuki.Commands
 				}
 			}
 
-			// Summary
-			File.WriteAllText("summary.md", output.ToString());
+			Macros.WriteAllTextOrConsole(options.outputPath, output.ToString());
 		}
 
 		static string LookupAdmonition(string severity)

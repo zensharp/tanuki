@@ -4,9 +4,7 @@ ARG VERSION
 WORKDIR /staging
 
 # Install UV
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="$PATH:/root/.local/bin"
-RUN uv --version
+RUN apk add --no-cache python3 py3-pip
 COPY zensical /staging/zensical
 
 # Build application

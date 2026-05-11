@@ -31,7 +31,7 @@
     },
     {
         "check_name": "CS0001",
-        "description": "Minor code quality issue",
+        "description": "Major code quality issue",
         "fingerprint": "2DE8CE6CCD17D4C0EC4342D289F78A03",
         "severity": "major",
         "linter": "Enforcer",
@@ -46,7 +46,7 @@
     },
     {
         "check_name": "CS0001",
-        "description": "Minor code quality issue",
+        "description": "Critical code quality issue",
         "fingerprint": "2DE8CE6CCD17D4C0EC4342D289F78A04",
         "severity": "critical",
         "linter": "Enforcer",
@@ -61,7 +61,7 @@
     },
     {
         "check_name": "CS0001",
-        "description": "Minor code quality issue",
+        "description": "Blocking code quality issue",
         "fingerprint": "2DE8CE6CCD17D4C0EC4342D289F78A05",
         "severity": "blocker",
         "linter": "Enforcer",

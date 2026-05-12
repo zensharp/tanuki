@@ -1,8 +1,19 @@
 ### How to build
-1. Use the provided Docker image.
-1. `tanuki markdown [report.json] -o report.md`
-1. `cat report.md >> zensical/docs/index.md`
-1. `cd zensical`
-1. `source .venv/bin/activate && pip install zensical`
-1. `mv site ../public`
-1. `cd ..`
+Use the provided Docker image, run the following
+
+```bash
+# Generate markdown reports
+tanuki markdown [report.json] [-o report/]
+
+# Copy to output
+for f in report/*.md; do
+	BASENAME=$(basename "$f")
+	cat "$f" >> "zensical/docs/$BASENAME"
+done
+
+# Build Zensical site
+cd zensical
+source .venv/bin/activate && pip install zensical
+mv site ../public
+cd ..
+```

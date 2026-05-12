@@ -1,0 +1,47 @@
+[
+    {
+        "check_name": "CS0001",
+        "description": "Info code quality issue",
+        "fingerprint": "2DE8CE6CCD17D4C0EC4342D289F78A01",
+        "severity": "info",
+        "linter": "Project Auditor",
+        "category": "Style",
+        "location": {
+            "path": "ExampleProject/Runner.cs",
+            "lines": {
+                "begin": 10
+            }
+        },
+        "code": "if (x == 0)\nreturn false;"
+    },
+    {
+        "check_name": "CS0001",
+        "description": "Minor code quality issue",
+        "fingerprint": "2DE8CE6CCD17D4C0EC4342D289F78A02",
+        "severity": "minor",
+        "linter": "Project Auditor",
+        "category": "Style",
+        "location": {
+            "path": "ExampleProject/Runner.cs",
+            "lines": {
+                "begin": 10
+            }
+        },
+        "code": "if (x == 0)\nreturn false;"
+    },
+    {
+        "check_name": "CS0001",
+        "description": "Major code quality issue",
+        "fingerprint": "2DE8CE6CCD17D4C0EC4342D289F78A03",
+        "severity": "major",
+        "linter": "Project Auditor",
+        "category": "Style",
+        "location": {
+            "path": "ExampleProject/Runner.cs",
+            "lines": {
+                "begin": 10
+            }
+        },
+        "code": "if (x == 0)\nreturn false;"
+    }
+]

@@ -2,6 +2,9 @@ public/
 out/
 .tanuki/
 codequality.json
+/*.json
 out.json
 output.json
 report.md
+report/
+site/

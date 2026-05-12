@@ -1,5 +1,3 @@
 ---
-icon: lucide/rocket
+icon: lucide/square-activity
 ---
-
-# Code Quality Report

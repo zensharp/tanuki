@@ -25,10 +25,10 @@ namespace Tanuki.Core
 			var issues = new List<Issue>();
 			foreach (var t in json["m_Issues"])
 			{
-				var issue = new Issue();
-
-				// Parse severity
-				var severity = UnityProjectAuditor.TransformSeverity(t["severity"]["m_String"].ToString());
+				// Parse json
+				var category = t["category"]["m_String"].ToString();
+				var rawSeverity = t["severity"]["m_String"].ToString();
+				var severity = UnityProjectAuditor.TransformSeverity(rawSeverity);
 				
 				// Parse location
 				Issue.Location location = null;
@@ -40,28 +40,33 @@ namespace Tanuki.Core
 					};
 					location.lines = new Issue.Location.Lines
 					{
-							begin = int.Parse(t["location"]["line"].ToString()),
+						begin = int.Parse(t["location"]["line"].ToString()),
 					};
 				}
-				catch
-				{
-					
-				}
+				catch { }
 				
 				// Create object
+				var issue = new Issue();
 				issue.check_name = t["descriptorId"]["m_AsString"].ToString();
-				issue.category = t["category"]["m_String"].ToString();
+				issue.category = category;
 				issue.description = t["description"].ToString();
 				issue.location = location;
 				issue.linter = "Project Auditor";
 				issue.severity = severity;
 				
+				/// Overwrite with C# linter
+				if (category == "CodeCompilerMessage")
+				{
+					issue.check_name = t["properties"][0].ToString();
+					issue.linter = "Roslyn";
+				}
+
 				// Compute fingerprint
 				var hashString = issue.check_name;
 				hashString += issue.location?.path;
 				hashString += issue.location?.lines?.begin;
 				issue.fingerprint = Macros.CreateMD5Hash(hashString);
-				
+
 				issues.Add(issue);
 			}
 

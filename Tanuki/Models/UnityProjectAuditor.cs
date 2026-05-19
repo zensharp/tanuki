@@ -4,20 +4,16 @@ namespace Tanuki.Models
 	{
 		public static string TransformSeverity(string text)
 		{
-			if (text.Equals("info", System.StringComparison.InvariantCultureIgnoreCase))
+			if (text.Equals("major", System.StringComparison.InvariantCultureIgnoreCase))
 			{
-				return "info";
+				return "critical";
 			}
 			if (text.Equals("moderate", System.StringComparison.InvariantCultureIgnoreCase))
 			{
 				return "major";
 			}
-			if (text.Equals("major", System.StringComparison.InvariantCultureIgnoreCase))
-			{
-				return "critical";
-			}
 			
-			return text.ToLower();
+			return "info";
 		}
 	}
 }

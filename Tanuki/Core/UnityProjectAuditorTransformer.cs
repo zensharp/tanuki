@@ -59,6 +59,7 @@ namespace Tanuki.Core
 				{
 					issue.check_name = t["properties"][0].ToString();
 					issue.linter = "Roslyn";
+					issue.severity = "info";
 				}
 
 				// Compute fingerprint

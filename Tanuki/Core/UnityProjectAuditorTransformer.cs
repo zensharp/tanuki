@@ -18,15 +18,17 @@ namespace Tanuki.Core
 			var match = Regex.Match(srcText, @"^.*?(?<json>{.*}).*$", RegexOptions.Singleline);
 			if (match.Success)
 			{
-				srcText = match.Groups["json"].Value;	
+				srcText = match.Groups["json"].Value;
 			}
 			
 			var json = JObject.Parse(srcText);
 			var issues = new List<Issue>();
-			foreach (var t in json["issues"])
+			foreach (var t in json["m_Issues"])
 			{
+				var issue = new Issue();
+
 				// Parse severity
-				var severity = UnityProjectAuditor.TransformSeverity(t["severity"].ToString());
+				var severity = UnityProjectAuditor.TransformSeverity(t["severity"]["m_String"].ToString());
 				
 				// Parse location
 				Issue.Location location = null;
@@ -47,23 +49,20 @@ namespace Tanuki.Core
 				}
 				
 				// Create object
-				var model = new Issue()
-				{
-					check_name = t["descriptorId"].ToString(),
-					category = t["category"].ToString(),
-					description = t["description"].ToString(),
-					location = location,
-					linter = "Project Auditor",
-					severity = severity,
-				};
+				issue.check_name = t["descriptorId"]["m_AsString"].ToString();
+				issue.category = t["category"]["m_String"].ToString();
+				issue.description = t["description"].ToString();
+				issue.location = location;
+				issue.linter = "Project Auditor";
+				issue.severity = severity;
 				
 				// Compute fingerprint
-				var hashString = model.check_name;
-				hashString += model.location?.path;
-				hashString += model.location?.lines?.begin;
-				model.fingerprint = Macros.CreateMD5Hash(hashString);
+				var hashString = issue.check_name;
+				hashString += issue.location?.path;
+				hashString += issue.location?.lines?.begin;
+				issue.fingerprint = Macros.CreateMD5Hash(hashString);
 				
-				issues.Add(model);
+				issues.Add(issue);
 			}
 
 			var formatting = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, };

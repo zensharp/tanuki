@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Tanuki.Models.CodeClimate;
 
@@ -46,9 +47,9 @@ namespace Tanuki.Core
 
 					foreach (var issue in checkGroup)
 					{
-						var isUniqueFile = checkGroup.Where(x => x.location.path == issue.location.path).Distinct().Count() <= 2;
+						var showLineNumbers = issue.location?.lines?.begin != 0;
 
-						string pathText = FoundIn(issue.location, forceLineNumbers: !isUniqueFile);
+						string pathText = FoundIn(issue.location, forceLineNumbers: showLineNumbers);
 						var description = issue.description.TrimEnd('.');
 						output.AppendLine($"		* [ ] {description} {pathText}.");
 					}
@@ -100,7 +101,7 @@ namespace Tanuki.Core
 				sourceFileUrl += $"#L{location.lines.begin}";
 				if (forceLineNumbers)
 				{
-					filename += $":{location.lines.begin}";
+					filename += $"#L{location.lines.begin}";
 				}
 			}
 			

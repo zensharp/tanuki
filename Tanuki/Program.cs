@@ -11,7 +11,8 @@ MarkdownCommand.Options,
 MergeCommand.Options,
 TransformCommand.Options,
 TriggerCommand.Options,
-FingerprintCommand.Options
+FingerprintCommand.Options,
+DedupeCommand.Options
 >(args)
 	.WithParsed<AssertCommand.Options>(x => new AssertCommand(x).OnParse())
 	.WithParsed<CoverageCommand.Options>(x => new CoverageCommand(x).OnParse())
@@ -22,4 +23,5 @@ FingerprintCommand.Options
 	.WithParsed<MergeCommand.Options>(x => new MergeCommand(x).OnParse())
 	.WithParsed<TransformCommand.Options>(x => new TransformCommand(x).OnParse())
 	.WithParsed<TriggerCommand.Options>(x => new TriggerCommand(x).OnParse())
-	.WithParsed<FingerprintCommand.Options>(x => new FingerprintCommand(x).OnParse());
+	.WithParsed<FingerprintCommand.Options>(x => new FingerprintCommand(x).OnParse())
+	.WithParsed<DedupeCommand.Options>(x => new DedupeCommand(x).OnParse());
